@@ -56,7 +56,13 @@ export default class Generator {
         },
       )
       paths.sort(
-        (a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }),
+        new Intl.Collator(
+          ['en', 'co'],
+          {
+            sensitivity: 'base',
+            numeric: true,
+          },
+        ).compare,
       )
       const codes = paths
         .filter(path => path !== currentFile)
