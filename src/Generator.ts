@@ -55,6 +55,9 @@ export default class Generator {
           onlyFiles: false,
         },
       )
+      paths.sort(
+        (a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }),
+      )
       const codes = paths
         .filter(path => path !== currentFile)
         .map(path => {
