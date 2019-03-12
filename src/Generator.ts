@@ -9,7 +9,7 @@ interface ParsedPath {
   /** The file name without extension, such as `api` */
   name: string,
   /** The file extension, such as `.js`*/
-  extension: string,
+  ext: string,
 }
 
 type Pattern = string
@@ -65,7 +65,7 @@ export default class Generator {
           const parsedPath: ParsedPath = {
             path: getRelativePath(currentDir, p.join(pp.dir, pp.name)),
             name: pp.name,
-            extension: pp.ext,
+            ext: pp.ext,
           }
           const code = marker.codeGenerator(parsedPath, lodash)
           return marker.indent + code

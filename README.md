@@ -32,7 +32,7 @@ In any file, simply invoke command `Generate Index` to generate a file list.
 - Example 4: `assets/index.ts`
 
   ```js
-  // @index('./*.{png,jpg,svg}', pp => `export { default as ${pp.name} } from '${pp.path}${pp.extension}'`)
+  // @index('./*.{png,jpg,svg}', pp => `export { default as ${pp.name} } from '${pp.path}${pp.ext}'`)
   export { default as image1 } from './image1.png'
   export { default as image2 } from './image2.jpg'
   export { default as image3 } from './image3.svg'
@@ -67,7 +67,7 @@ interface ParsedPath {
   /** The file name without extension, such as `api` */
   name: string,
   /** The file extension, such as `.js`*/
-  extension: string,
+  ext: string,
 }
 
 type Pattern = string
