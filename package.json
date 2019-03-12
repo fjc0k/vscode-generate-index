@@ -1,0 +1,84 @@
+{
+	"name": "generate-index",
+	"displayName": "Generate Index",
+	"description": "Generating file indexes easily.",
+	"version": "0.0.1",
+	"license": "MIT",
+	"publisher": "JayFong",
+	"engines": {
+		"vscode": "^1.32.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fjc0k/vscode-generate-index"
+	},
+	"activationEvents": [
+		"onCommand:extension.generateIndex"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.generateIndex",
+				"title": "Generate Index"
+			}
+		],
+		"configuration": {
+			"title": "Generate Index",
+			"properties": {
+				"generateIndex.defaultPatterns": {
+					"type": "string",
+					"default": "['./*.{js,jsx,ts,tsx}']",
+					"description": "<Array> The default patterns to use when exporting files."
+				},
+				"generateIndex.defaultCodeGenerator": {
+					"type": "string",
+					"default": "(parsedPath, lodash) => `export { default as ${parsedPath.name} } from '${parsedPath.path}'`",
+					"description": "<Function> The default code generator to use when generating indexes."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "yarn run compile && node ./node_modules/vscode/bin/test",
+		"release": "standard-version -a && git push --follow-tags origin master && vsce publish"
+	},
+	"eslintConfig": {
+		"root": true,
+		"extends": "io",
+		"rules": {
+			"import/no-unresolved": [
+				2,
+				{
+					"ignore": [
+						"vscode"
+					]
+				}
+			]
+		}
+	},
+	"eslintIgnore": [
+		"out"
+	],
+	"devDependencies": {
+		"@types/lodash": "^4.14.123",
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^10.12.21",
+		"eslint": "^5.15.1",
+		"eslint-config-io": "^0.1.1",
+		"standard-version": "^5.0.1",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28"
+	},
+	"dependencies": {
+		"globby": "^9.1.0",
+		"lodash": "^4.17.11"
+	}
+}
