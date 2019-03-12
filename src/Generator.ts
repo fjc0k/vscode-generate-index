@@ -52,6 +52,7 @@ export default class Generator {
         {
           cwd: currentDir,
           absolute: true,
+          onlyFiles: false,
         },
       )
       const codes = paths
