@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.5.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.4.0...v0.5.0) (2019-03-13)
+
+
+### Features
+
+* lodash --> changeCase ([9142e6d](https://github.com/fjc0k/vscode-generate-index/commit/9142e6d))
+* use bili to bundle extension ([338575f](https://github.com/fjc0k/vscode-generate-index/commit/338575f))
+
+
+
 # [0.4.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.3.0...v0.4.0) (2019-03-12)
 
 
