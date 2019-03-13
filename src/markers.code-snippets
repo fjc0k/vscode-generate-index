@@ -1,0 +1,16 @@
+{
+  "@index": {
+    "prefix": "@index",
+    "body": [
+      "@index('./*', (pp, cc) => `export { default as ${pp.name} } from '${pp.path}'`)"
+    ],
+    "description": "@index marker"
+  },
+  "@endindex": {
+    "prefix": "@endindex",
+    "body": [
+      "@endindex"
+    ],
+    "description": "@endindex marker"
+  }
+}

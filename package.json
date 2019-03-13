@@ -30,6 +30,11 @@
 				"title": "Generate Index"
 			}
 		],
+		"snippets": [
+			{
+				"path": "./dist/markers.code-snippets"
+			}
+		],
 		"configuration": {
 			"title": "Generate Index",
 			"properties": {
@@ -48,7 +53,7 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
-		"compile": "bili",
+		"compile": "bili && cpy src/markers.code-snippets dist/",
 		"watch": "bili --watch",
 		"postinstall": "node ./node_modules/vscode/bin/install",
 		"test": "yarn run compile && node ./node_modules/vscode/bin/test",
@@ -76,6 +81,7 @@
 		"@types/mocha": "^2.2.42",
 		"@types/node": "^10.12.21",
 		"bili": "^4.4.0",
+		"cpy-cli": "^2.0.0",
 		"eslint": "^5.15.1",
 		"eslint-config-io": "^0.1.1",
 		"standard-version": "^5.0.1",
