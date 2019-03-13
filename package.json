@@ -5,6 +5,9 @@
 	"version": "0.4.0",
 	"license": "MIT",
 	"publisher": "JayFong",
+	"browserslist": [
+		"node 8"
+	],
 	"engines": {
 		"vscode": "^1.32.0"
 	},
@@ -19,7 +22,7 @@
 	"activationEvents": [
 		"onCommand:extension.generateIndex"
 	],
-	"main": "./out/extension.js",
+	"main": "./dist/extension.min.js",
 	"contributes": {
 		"commands": [
 			{
@@ -44,9 +47,9 @@
 		}
 	},
 	"scripts": {
-		"vscode:prepublish": "yarn run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
+		"vscode:prepublish": "yarn run build",
+		"compile": "bili",
+		"watch": "bili --watch",
 		"postinstall": "node ./node_modules/vscode/bin/install",
 		"test": "yarn run compile && node ./node_modules/vscode/bin/test",
 		"release": "standard-version -a && git push --follow-tags origin master && vsce publish"
@@ -66,20 +69,22 @@
 		}
 	},
 	"eslintIgnore": [
-		"out"
+		"out",
+		"dist"
 	],
 	"devDependencies": {
-		"@types/lodash": "^4.14.123",
 		"@types/mocha": "^2.2.42",
 		"@types/node": "^10.12.21",
+		"bili": "^4.4.0",
 		"eslint": "^5.15.1",
 		"eslint-config-io": "^0.1.1",
 		"standard-version": "^5.0.1",
-		"typescript": "^3.3.1",
+		"typescript": "^3.3.3333",
 		"vscode": "^1.1.28"
 	},
 	"dependencies": {
+		"change-case": "^3.1.0",
 		"globby": "^9.1.0",
-		"lodash": "^4.17.11"
+		"vtils": "^0.78.0"
 	}
 }

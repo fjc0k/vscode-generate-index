@@ -1,3 +1,5 @@
 node_modules
 *.log
 out
+dist
+.rpt2_cache
