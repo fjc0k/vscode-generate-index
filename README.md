@@ -56,36 +56,48 @@ You can use markers (`@index()` and `@endindex`) to tell where the index should 
 
 ## @index()
 
-`index` is a function (type: `Index`):
+`index` is a function, used for producing index:
 
 ```ts
-import * as lodash from 'lodash'
-
-interface ParsedPath {
-  /** The relative file path without extension, such as `./api` */
-  path: string,
-  /** The file name without extension, such as `api` */
-  name: string,
-  /** The file extension, such as `.js`*/
-  ext: string,
-}
-
-type Pattern = string
-
-type CodeGenerator = (
-  parsedPath: ParsedPath,
-  lodash: lodash.LoDashStatic,
-) => string
-
-type Index = (
-  patterns: Pattern | Pattern[],
+function index(
+  patterns: Patterns,
   codeGenerator: CodeGenerator,
-) => string
+): string {
+  // generate index
+}
 ```
 
-## Patterns
+- **Patterns**
 
-See supported `minimatch` [patterns](https://github.com/isaacs/minimatch#usage).
+  ```ts
+  type Patterns = string | string[]
+  ```
+
+  See supported `minimatch` [patterns](https://github.com/isaacs/minimatch#usage).
+
+- **CodeGenerator**
+
+  ```ts
+  type CodeGenerator = (
+    parsedPath: ParsedPath,
+    changeCase: ChangeCase,
+  ) => string
+
+  interface ParsedPath {
+    /** The relative file path without extension, such as `./api` */
+    path: string,
+    /** The file name without extension, such as `api` */
+    name: string,
+    /** The file extension, such as `.js`*/
+    ext: string,
+  }
+
+  interface ChangeCase {
+    // See https://github.com/blakeembrey/change-case#usage
+  }
+  ```
+
+  See [all changeCase methods](ChangeCase).
 
 ## Indentation
 
@@ -93,7 +105,7 @@ You can make an index indented by indenting the start marker, e.g.
 
 ```js
 module.exports = {
-  // @index('./*.js', pp => `${pp.name}: require('${pp.path}'),`)
+  // @index('./*.js', (pp, cc) => `${cc.constantCase(pp.name)}: require('${pp.path}'),`)
   // @endindex
 }
 ```
@@ -102,9 +114,9 @@ The produced index like as:
 
 ```js
 module.exports = {
-  // @index('./*.js', pp => `${pp.name}: require('${pp.path}'),`)
-  module1: require('./module1'),
-  module2: require('./module2'),
+  // @index('./*.js', (pp, cc) => `${cc.constantCase(pp.name)}: require('${pp.path}'),`)
+  MODULE1: require('./module1'),
+  MODULE2: require('./module2'),
   // @endindex
 }
 ```

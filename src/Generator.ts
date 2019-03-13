@@ -1,7 +1,10 @@
 import * as p from 'path'
-import * as lodash from 'lodash'
+import * as changeCase from 'change-case'
 import * as vscode from 'vscode'
+import { mapValues, isFunction, castArray } from 'vtils'
 import globby from 'globby'
+
+type ChangeCase = typeof changeCase
 
 interface ParsedPath {
   /** The relative file path without extension, such as `./api` */
@@ -16,7 +19,7 @@ type Pattern = string
 
 type CodeGenerator = (
   parsedPath: ParsedPath,
-  lodash: lodash.LoDashStatic,
+  changeCase: ChangeCase,
 ) => string
 
 interface Marker {
@@ -35,7 +38,7 @@ interface Config {
 export default class Generator {
   constructor(
     private document: vscode.TextDocument,
-    private config: Config = lodash.mapValues(
+    private config: Config = mapValues(
       vscode.workspace.getConfiguration('generateIndex'),
       value => eval(`${value}`),
     ) as any,
@@ -73,7 +76,7 @@ export default class Generator {
             name: pp.name,
             ext: pp.ext,
           }
-          const code = marker.codeGenerator(parsedPath, lodash)
+          const code = marker.codeGenerator(parsedPath, changeCase)
           return marker.indent + code
         })
       edit.replace(
@@ -111,8 +114,8 @@ export default class Generator {
         localPatterns: Pattern | Pattern[] = defaultPatterns,
         localCodeGenerator: CodeGenerator = defaultCodeGenerator,
       ) {
-        patterns = lodash.castArray(localPatterns)
-        codeGenerator = lodash.isFunction(localCodeGenerator) ? localCodeGenerator : defaultCodeGenerator
+        patterns = castArray(localPatterns)
+        codeGenerator = isFunction(localCodeGenerator) ? localCodeGenerator : defaultCodeGenerator
       }
       try {
         eval(`${setParams.name}(${startMatch[2]})`)
