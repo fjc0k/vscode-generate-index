@@ -40,7 +40,7 @@
 				},
 				"generateIndex.defaultCodeGenerator": {
 					"type": "string",
-					"default": "(parsedPath, lodash) => `export { default as ${parsedPath.name} } from '${parsedPath.path}'`",
+					"default": "(parsedPath, changeCase) => `export { default as ${parsedPath.name} } from '${parsedPath.path}'`",
 					"description": "<Function> The default code generator to use when generating indexes."
 				}
 			}
