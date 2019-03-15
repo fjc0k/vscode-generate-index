@@ -97,7 +97,7 @@ function index(
   }
   ```
 
-  See [all changeCase methods](ChangeCase).
+  See [all changeCase methods](https://github.com/blakeembrey/change-case#usage).
 
 ## Indentation
 
