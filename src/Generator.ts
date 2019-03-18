@@ -20,6 +20,12 @@ type Pattern = string
 type CodeGenerator = (
   parsedPath: ParsedPath,
   changeCase: ChangeCase,
+  extraInfo: {
+    total: number,
+    index: number,
+    first: boolean,
+    last: boolean,
+  },
 ) => string
 
 interface Marker {
@@ -69,14 +75,23 @@ export default class Generator {
       )
       const codes = paths
         .filter(path => path !== currentFile)
-        .map(path => {
+        .map((path, index, paths) => {
           const pp = p.parse(path)
           const parsedPath: ParsedPath = {
             path: getRelativePath(currentDir, p.join(pp.dir, pp.name)),
             name: pp.name,
             ext: pp.ext,
           }
-          const code = marker.codeGenerator(parsedPath, changeCase)
+          const code = marker.codeGenerator(
+            parsedPath,
+            changeCase,
+            {
+              total: paths.length,
+              index: index,
+              first: index === 0,
+              last: index === paths.length - 1,
+            },
+          )
           return marker.indent + code
         })
       edit.replace(

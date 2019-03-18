@@ -81,6 +81,7 @@ function index(
   type CodeGenerator = (
     parsedPath: ParsedPath,
     changeCase: ChangeCase,
+    extraInfo: ExtraInfo,
   ) => string
 
   interface ParsedPath {
@@ -94,6 +95,17 @@ function index(
 
   interface ChangeCase {
     // See https://github.com/blakeembrey/change-case#usage
+  }
+
+  interface ExtraInfo {
+    /** total number of items */
+    total: number,
+    /** index of current item */
+    index: number,
+    /** if current item is the first */
+    first: boolean,
+    /** if current item is the last */
+    last: boolean,
   }
   ```
 
