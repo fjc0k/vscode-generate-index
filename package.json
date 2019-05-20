@@ -34,22 +34,7 @@
 			{
 				"path": "./dist/markers.code-snippets"
 			}
-		],
-		"configuration": {
-			"title": "Generate Index",
-			"properties": {
-				"generateIndex.defaultPatterns": {
-					"type": "string",
-					"default": "['./*.{js,jsx,ts,tsx}']",
-					"description": "<Array> The default patterns to use when exporting files."
-				},
-				"generateIndex.defaultCodeGenerator": {
-					"type": "string",
-					"default": "(parsedPath, changeCase) => `export { default as ${parsedPath.name} } from '${parsedPath.path}'`",
-					"description": "<Function> The default code generator to use when generating indexes."
-				}
-			}
-		}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",

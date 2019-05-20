@@ -1,7 +1,7 @@
 import * as p from 'path'
 import * as changeCase from 'change-case'
 import * as vscode from 'vscode'
-import { mapValues, isFunction, castArray } from 'vtils'
+import { castArray, noop } from 'vtils'
 import globby from 'globby'
 
 type ChangeCase = typeof changeCase
@@ -36,79 +36,72 @@ interface Marker {
   codeGenerator: CodeGenerator,
 }
 
-interface Config {
-  defaultPatterns: Pattern[],
-  defaultCodeGenerator: CodeGenerator,
-}
-
 export default class Generator {
   constructor(
     private document: vscode.TextDocument,
-    private config: Config = mapValues(
-      vscode.workspace.getConfiguration('generateIndex'),
-      value => eval(`${value}`),
-    ) as any,
   ) {}
 
   async generateIndex() {
     const currentFile = this.document.uri.fsPath
     const currentDir = p.dirname(currentFile)
     const markers = this.findMarkers()
-    const edit = new vscode.WorkspaceEdit()
-    for (const marker of markers) {
-      const paths = await globby(
-        marker.patterns,
-        {
-          cwd: currentDir,
-          absolute: true,
-          onlyFiles: false,
-        },
-      )
-      paths.sort(
-        new Intl.Collator(
-          ['en', 'co'],
+    if (markers.length) {
+      const edit = new vscode.WorkspaceEdit()
+      for (const marker of markers) {
+        const paths = await globby(
+          marker.patterns,
           {
-            sensitivity: 'base',
-            numeric: true,
+            cwd: currentDir,
+            absolute: true,
+            onlyFiles: false,
           },
-        ).compare,
-      )
-      const codes = paths
-        .filter(path => path !== currentFile)
-        .map((path, index, paths) => {
-          const pp = p.parse(path)
-          const parsedPath: ParsedPath = {
-            path: getRelativePath(currentDir, p.join(pp.dir, pp.name)),
-            name: pp.name,
-            ext: pp.ext,
-          }
-          const code = marker.codeGenerator(
-            parsedPath,
-            changeCase,
+        )
+        paths.sort(
+          new Intl.Collator(
+            ['en', 'co'],
             {
-              total: paths.length,
-              index: index,
-              first: index === 0,
-              last: index === paths.length - 1,
+              sensitivity: 'base',
+              numeric: true,
             },
-          )
-          return marker.indent + code
-        })
-      edit.replace(
-        this.document.uri,
-        new vscode.Range(
-          this.document.positionAt(marker.start),
-          this.document.positionAt(marker.end),
-        ),
-        `${marker.start === 0 ? '' : '\n'}${codes.join('\n')}\n`,
-      )
+          ).compare,
+        )
+        const codes = paths
+          .filter(path => path !== currentFile)
+          .map((path, index, paths) => {
+            const pp = p.parse(path)
+            const parsedPath: ParsedPath = {
+              path: getRelativePath(currentDir, p.join(pp.dir, pp.name)),
+              name: pp.name,
+              ext: pp.ext,
+            }
+            const code = marker.codeGenerator(
+              parsedPath,
+              changeCase,
+              {
+                total: paths.length,
+                index: index,
+                first: index === 0,
+                last: index === paths.length - 1,
+              },
+            )
+            return marker.indent + code
+          })
+        edit.replace(
+          this.document.uri,
+          new vscode.Range(
+            this.document.positionAt(marker.start),
+            this.document.positionAt(marker.end),
+          ),
+          `${marker.start === 0 ? '' : '\n'}${codes.join('\n')}\n`,
+        )
+      }
+      await vscode.workspace.applyEdit(edit)
+    } else {
+      vscode.window.showInformationMessage('No @index maker found.')
     }
-    await vscode.workspace.applyEdit(edit)
   }
 
   findMarkers(): Marker[] {
-    const { defaultPatterns, defaultCodeGenerator } = this.config
-
     const markers: Marker[] = []
 
     const text = this.document.getText()
@@ -122,15 +115,15 @@ export default class Generator {
       const start = startFrom + startMatch.index! + startMatch[0].length
       const end = !endMatch ? text.length : startFrom + endMatch.index!
       const indent = startMatch[1].match(/^\s*/)![0]
-      let patterns: Pattern[] = defaultPatterns
-      let codeGenerator: CodeGenerator = defaultCodeGenerator
+      let patterns: Pattern[] = []
+      let codeGenerator: CodeGenerator = noop
       // eslint-disable-next-line no-inner-declarations
       function setParams(
-        localPatterns: Pattern | Pattern[] = defaultPatterns,
-        localCodeGenerator: CodeGenerator = defaultCodeGenerator,
+        localPatterns: Pattern | Pattern[],
+        localCodeGenerator: CodeGenerator,
       ) {
         patterns = castArray(localPatterns)
-        codeGenerator = isFunction(localCodeGenerator) ? localCodeGenerator : defaultCodeGenerator
+        codeGenerator = localCodeGenerator
       }
       try {
         eval(`${setParams.name}(${startMatch[2]})`)
@@ -147,16 +140,6 @@ export default class Generator {
         )
       }
       startFrom = end + (endMatch ? endMatch![0].length : 0)
-    }
-
-    if (markers.length === 0) {
-      markers.push({
-        indent: '',
-        start: 0,
-        end: text.length,
-        patterns: defaultPatterns,
-        codeGenerator: defaultCodeGenerator,
-      })
     }
 
     markers.sort(
