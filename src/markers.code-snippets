@@ -2,6 +2,13 @@
   "@index": {
     "prefix": "@index",
     "body": [
+      "@index('./*', (pp, cc) => `export * from '${pp.path}'`)"
+    ],
+    "description": "@index marker"
+  },
+  "@index-export-default": {
+    "prefix": "@index-export-default",
+    "body": [
       "@index('./*', (pp, cc) => `export { default as ${pp.name} } from '${pp.path}'`)"
     ],
     "description": "@index marker"
