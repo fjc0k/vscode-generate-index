@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.8.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.7.0...v0.8.0) (2019-05-20)
+
+
+### Features
+
+* **snippets:** add [@index-export-default](https://github.com/index-export-default) ([16768ea](https://github.com/fjc0k/vscode-generate-index/commit/16768ea))
+* no index is generated if no maker ([fe76db0](https://github.com/fjc0k/vscode-generate-index/commit/fe76db0))
+
+
+
 # [0.7.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.6.1...v0.7.0) (2019-03-18)
 
 
