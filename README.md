@@ -106,6 +106,10 @@ function index(
     first: boolean,
     /** if current item is the last */
     last: boolean,
+    /** if current item is a directory */
+    isDir: boolean,
+    /** if current item is a file */
+    isFile: boolean,
   }
   ```
 

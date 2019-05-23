@@ -1,4 +1,5 @@
 import * as p from 'path'
+import * as fs from 'fs'
 import * as changeCase from 'change-case'
 import * as vscode from 'vscode'
 import { castArray, noop } from 'vtils'
@@ -25,6 +26,8 @@ type CodeGenerator = (
     index: number,
     first: boolean,
     last: boolean,
+    isDir: boolean,
+    isFile: boolean,
   },
 ) => string
 
@@ -78,10 +81,24 @@ export default class Generator {
               parsedPath,
               changeCase,
               {
-                total: paths.length,
-                index: index,
-                first: index === 0,
-                last: index === paths.length - 1,
+                get total() {
+                  return paths.length
+                },
+                get index() {
+                  return index
+                },
+                get first() {
+                  return index === 0
+                },
+                get last() {
+                  return index === paths.length - 1
+                },
+                get isDir() {
+                  return fs.statSync(path).isDirectory()
+                },
+                get isFile() {
+                  return fs.statSync(path).isFile()
+                },
               },
             )
             return marker.indent + code
