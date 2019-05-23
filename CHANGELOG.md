@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.9.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.8.0...v0.9.0) (2019-05-23)
+
+
+### Features
+
+* add isDir, isFile to ExtraInfo ([b38d9e2](https://github.com/fjc0k/vscode-generate-index/commit/b38d9e2))
+
+
+
 # [0.8.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.7.0...v0.8.0) (2019-05-20)
 
 
