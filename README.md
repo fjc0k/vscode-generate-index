@@ -103,9 +103,9 @@ function index(
     /** index of current item */
     index: number,
     /** if current item is the first */
-    first: boolean,
+    isFirst: boolean,
     /** if current item is the last */
-    last: boolean,
+    isLast: boolean,
     /** if current item is a directory */
     isDir: boolean,
     /** if current item is a file */

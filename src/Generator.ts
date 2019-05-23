@@ -24,8 +24,12 @@ type CodeGenerator = (
   extraInfo: {
     total: number,
     index: number,
+    /** @deprecated */
     first: boolean,
+    /** @deprecated */
     last: boolean,
+    isFirst: boolean,
+    isLast: boolean,
     isDir: boolean,
     isFile: boolean,
   },
@@ -91,6 +95,12 @@ export default class Generator {
                   return index === 0
                 },
                 get last() {
+                  return index === paths.length - 1
+                },
+                get isFirst() {
+                  return index === 0
+                },
+                get isLast() {
                   return index === paths.length - 1
                 },
                 get isDir() {
