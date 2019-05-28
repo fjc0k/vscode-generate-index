@@ -71,7 +71,7 @@
 		"eslint-config-io": "^0.1.1",
 		"standard-version": "^5.0.1",
 		"typescript": "^3.3.3333",
-		"vscode": "^1.1.28"
+		"vscode": "^1.1.34"
 	},
 	"dependencies": {
 		"change-case": "^3.1.0",
