@@ -2,7 +2,7 @@
 	"name": "generate-index",
 	"displayName": "Generate Index",
 	"description": "Generating file indexes easily.",
-	"version": "0.10.1",
+	"version": "0.11.0",
 	"license": "MIT",
 	"publisher": "JayFong",
 	"engines": {
