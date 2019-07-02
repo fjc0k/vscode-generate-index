@@ -1,9 +1,9 @@
-import * as p from 'path'
-import * as fs from 'fs'
 import * as changeCase from 'change-case'
+import * as fs from 'fs'
+import * as p from 'path'
 import * as vscode from 'vscode'
-import { castArray, noop } from 'vtils'
 import globby, { GlobbyOptions } from 'globby'
+import { castArray, noop } from 'vtils'
 
 type ChangeCase = typeof changeCase
 
