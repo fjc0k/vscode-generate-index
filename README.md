@@ -62,6 +62,7 @@ You can use markers (`@index()` and `@endindex`) to tell where the index should 
 function index(
   patterns: Patterns,
   codeGenerator: CodeGenerator,
+  globbyOptions?: GlobbyOptions,
 ): string {
   // generate index
 }
@@ -114,6 +115,10 @@ function index(
   ```
 
   See [all changeCase methods](https://github.com/blakeembrey/change-case#usage).
+
+- **GlobbyOptions**
+
+  See [https://github.com/sindresorhus/globby#options](https://github.com/sindresorhus/globby#options).
 
 ## Indentation
 

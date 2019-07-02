@@ -3,7 +3,7 @@ import * as fs from 'fs'
 import * as changeCase from 'change-case'
 import * as vscode from 'vscode'
 import { castArray, noop } from 'vtils'
-import globby from 'globby'
+import globby, { GlobbyOptions } from 'globby'
 
 type ChangeCase = typeof changeCase
 
@@ -41,6 +41,7 @@ interface Marker {
   end: number,
   patterns: Pattern[],
   codeGenerator: CodeGenerator,
+  globbyOptions: GlobbyOptions,
 }
 
 export default class Generator {
@@ -58,9 +59,12 @@ export default class Generator {
         const paths = await globby(
           marker.patterns,
           {
+            dot: true,
+            onlyFiles: false,
+            gitignore: true,
+            ...(marker.globbyOptions || {}),
             cwd: currentDir,
             absolute: true,
-            onlyFiles: false,
           },
         )
         paths.sort(
@@ -144,13 +148,16 @@ export default class Generator {
       const indent = startMatch[1].match(/^\s*/)![0]
       let patterns: Pattern[] = []
       let codeGenerator: CodeGenerator = noop
+      let globbyOptions: GlobbyOptions = {}
       // eslint-disable-next-line no-inner-declarations
       function setParams(
         localPatterns: Pattern | Pattern[],
         localCodeGenerator: CodeGenerator,
+        localGlobbyOptions: GlobbyOptions,
       ) {
         patterns = castArray(localPatterns)
         codeGenerator = localCodeGenerator
+        globbyOptions = localGlobbyOptions
       }
       try {
         eval(`${setParams.name}(${startMatch[2]})`)
@@ -160,6 +167,7 @@ export default class Generator {
           end: end,
           patterns: patterns,
           codeGenerator: codeGenerator,
+          globbyOptions: globbyOptions,
         })
       } catch (e) {
         vscode.window.showWarningMessage(
