@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.12.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.11.0...v0.12.0) (2019-07-03)
+
+
+### Features
+
+* add keybindings: `ctrl+k i`, `cmd+k i` ([6560db3](https://github.com/fjc0k/vscode-generate-index/commit/6560db3))
+
+
+
 ## [0.11.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.10.1...v0.11.0) (2019-07-02)
 
 

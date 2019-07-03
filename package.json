@@ -2,7 +2,7 @@
 	"name": "generate-index",
 	"displayName": "Generate Index",
 	"description": "Generating file indexes easily.",
-	"version": "0.11.0",
+	"version": "0.12.0",
 	"license": "MIT",
 	"publisher": "JayFong",
 	"engines": {
@@ -28,12 +28,12 @@
 			}
 		],
 		"keybindings": [
-      {
-        "command": "extension.generateIndex",
-        "key": "ctrl+k i",
-        "mac": "cmd+k i"
-      }
-    ],
+			{
+				"command": "extension.generateIndex",
+				"key": "ctrl+k i",
+				"mac": "cmd+k i"
+			}
+		],
 		"snippets": [
 			{
 				"path": "./snippets/markers.code-snippets"
