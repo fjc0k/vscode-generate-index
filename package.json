@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"publisher": "JayFong",
 	"engines": {
-		"vscode": "^1.32.0"
+		"vscode": "^1.14.0"
 	},
 	"icon": "assets/logo.png",
 	"categories": [
@@ -27,6 +27,13 @@
 				"title": "Generate Index"
 			}
 		],
+		"keybindings": [
+      {
+        "command": "extension.generateIndex",
+        "key": "ctrl+k i",
+        "mac": "cmd+k i"
+      }
+    ],
 		"snippets": [
 			{
 				"path": "./snippets/markers.code-snippets"
