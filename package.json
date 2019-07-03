@@ -31,7 +31,8 @@
 			{
 				"command": "extension.generateIndex",
 				"key": "ctrl+k i",
-				"mac": "cmd+k i"
+				"mac": "cmd+k i",
+				"when": "editorFocus"
 			}
 		],
 		"snippets": [
