@@ -61,7 +61,7 @@ export default class Generator {
           {
             dot: true,
             onlyFiles: false,
-            gitignore: true,
+            gitignore: false, // TODO: fix https://github.com/sindresorhus/globby/issues/133
             ...(marker.globbyOptions || {}),
             cwd: currentDir,
             absolute: true,
