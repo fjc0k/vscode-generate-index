@@ -6,36 +6,46 @@ Generating file indexes easily.
 
 In any file, simply invoke command `Generate Index` to generate a file list.
 
-- Example 1: `src/index.js`
+> To display the command palette, use the following keyboard shortcut, based on your installed operating system:
+> - MacOS: `Command+Shift+P`
+> - Windows: `Ctrl+Shift+P`
+
+- Example 1: `src/components/index.js`
 
   ```js
-  export { default as module1 } from './module1'
-  export { default as module2 } from './module2'
+  // @index('./**/*.jsx', f => `export * from '${f.path}'`)
+  export * from './Button'
+  export * from './Card'
+  export * from './Modal'
+  export * from './Modal/Alert'
+  // @endindex
   ```
 
-- Example 2: `utils.ts`
-
-  ```js
-  // @index('../utils/*.ts')
-  export { default as util1 } from '../utils/util1'
-  export { default as util2 } from '../utils/util1'
-  ```
-
-- Example 3: `styles/components.scss`
+- Example 2: `src/styles/components.scss`
 
   ```scss
-  // @index('./components/*.scss', pp => `@import '${pp.path}';`)
-  @import './components/component1';
-  @import './components/component2';
+  // @index(['../components/**/*.scss', '!../components/**/_*.scss'], f => `@import '${f.path}';`)
+  @import '../components/Button';
+  @import '../components/Card';
+  @import '../components/Modal';
+  @import '../components/Modal/Alert';
+  // @endindex
   ```
 
-- Example 4: `assets/index.ts`
+- Example 3: `src/assets/index.ts`
 
   ```js
-  // @index('./*.{png,jpg,svg}', pp => `export { default as ${pp.name} } from '${pp.path}${pp.ext}'`)
-  export { default as image1 } from './image1.png'
-  export { default as image2 } from './image2.jpg'
-  export { default as image3 } from './image3.svg'
+  // @index('./*.{png,jpg,svg}', (f, _) => `export { default as img${_.pascalCase(f.name)} } from '${f.path}${f.ext}'`)
+  export { default as imgHomeBanner } from './home-banner.png'
+  export { default as imgPlaceholder } from './placeholder.jpg'
+  export { default as imgDivider } from './divider.svg'
+  // @endindex
+
+  // @index('./*.{mp3,aac,m4a}', (f, _) => `export { default as audio${_.pascalCase(f.name)} } from '${f.path}${f.ext}'`)
+  export { default as audioSailing } from './sailing.mp3'
+  export { default as audioSummerWine } from './summer-wine.aac'
+  export { default as audioThankYou } from './thank-you.m4a'
+  // @endindex
   ```
 
 ## Markers
@@ -45,7 +55,7 @@ You can use markers (`@index()` and `@endindex`) to tell where the index should 
 ```js
 // This line will remain in the file.
 
-// @index()
+// @index(patterns, codeGenerator, globbyOptions)
 
 // ... The index will be (re)placed here.  
 
@@ -63,9 +73,7 @@ function index(
   patterns: Patterns,
   codeGenerator: CodeGenerator,
   globbyOptions?: GlobbyOptions,
-): string {
-  // generate index
-}
+): string {}
 ```
 
 - **Patterns**
@@ -126,7 +134,7 @@ You can make an index indented by indenting the start marker, e.g.
 
 ```js
 module.exports = {
-  // @index('./*.js', (pp, cc) => `${cc.constantCase(pp.name)}: require('${pp.path}'),`)
+  // @index('./*.js', (f, _) => `${_.constantCase(f.name)}: require('${f.path}'),`)
   // @endindex
 }
 ```
@@ -135,9 +143,13 @@ The produced index like as:
 
 ```js
 module.exports = {
-  // @index('./*.js', (pp, cc) => `${cc.constantCase(pp.name)}: require('${pp.path}'),`)
+  // @index('./*.js', (f, _) => `${_.constantCase(f.name)}: require('${f.path}'),`)
   MODULE1: require('./module1'),
   MODULE2: require('./module2'),
   // @endindex
 }
 ```
+
+## License
+
+Jay Fong (c) MIT

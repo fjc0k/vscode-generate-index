@@ -1,15 +1,22 @@
 {
-  "@index": {
-    "prefix": "@index",
+  "@index-export-all": {
+    "prefix": "@index-export-all",
     "body": [
-      "@index('./*', (pp, cc) => `export * from '${pp.path}'`)"
+      "@index('./*', f => `export * from '${f.path}'`)"
     ],
     "description": "@index marker"
   },
   "@index-export-default": {
     "prefix": "@index-export-default",
     "body": [
-      "@index('./*', (pp, cc) => `export { default as ${pp.name} } from '${pp.path}'`)"
+      "@index('./*', f => `export { default as ${f.name} } from '${f.path}'`)"
+    ],
+    "description": "@index marker"
+  },
+  "@index-export-image-assets": {
+    "prefix": "@index-export-image-assets",
+    "body": [
+      "@index('./*.{png,jpg,jpeg,svg,gif}', (f, _) => `export { default as img${_.pascalCase(f.name)} } from '${f.path}${f.ext}'`)"
     ],
     "description": "@index marker"
   },
