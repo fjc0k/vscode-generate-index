@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.13.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.12.2...v0.13.0) (2020-03-24)
+
+
+### Features
+
+* update documents ([4dd3a39](https://github.com/fjc0k/vscode-generate-index/commit/4dd3a39))
+
+
+
 ### [0.12.2](https://github.com/fjc0k/vscode-generate-index/compare/v0.12.1...v0.12.2) (2019-07-17)
 
 
