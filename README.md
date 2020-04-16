@@ -2,7 +2,23 @@
 
 Generating file indexes easily.
 
-## Wherever
+---
+
+<!-- TOC depthFrom:2 -->
+
+- [Usage](#usage)
+- [@index()](#index)
+- [Indentation](#indentation)
+- [Standalone version](#standalone-version)
+  - [Install](#install)
+  - [Usage](#usage-1)
+    - [CLI](#cli)
+    - [API](#api)
+- [License](#license)
+
+<!-- /TOC -->
+
+## Usage
 
 In any file, simply invoke command `Generate Index` to generate a file list.
 
@@ -48,22 +64,6 @@ In any file, simply invoke command `Generate Index` to generate a file list.
   export { default as audioThankYou } from './thank-you.m4a'
   // @endindex
   ```
-
-## Markers
-
-You can use markers (`@index()` and `@endindex`) to tell where the index should be built, instead of replacing the entire file:
-
-```js
-// This line will remain in the file.
-
-// @index(patterns, codeGenerator, globbyOptions)
-
-// ... The index will be (re)placed here.
-
-// @endindex
-
-// This line will remain in the file.
-```
 
 ## @index()
 
@@ -149,6 +149,52 @@ module.exports = {
   MODULE2: require('./module2'),
   // @endindex
 }
+```
+
+## Standalone version
+
+There is a standalone version here that allows you to use this feature without the help of VSCode.
+
+### Install
+
+```bash
+# npm
+npm i vscode-generate-index-standalone -D
+
+# yarn
+yarn add vscode-generate-index-standalone -D
+
+# pnpm
+pnpm add vscode-generate-index-standalone -D
+```
+
+### Usage
+
+#### CLI
+
+```bash
+# npm
+npx vscode-generate-index-standalone src/ scripts/
+
+# yarn
+yarn vscode-generate-index-standalone src/ scripts/
+
+# pnpm
+pnpx vscode-generate-index-standalone src/ scripts/
+```
+
+#### API
+
+```js
+import { generateIndex } from 'vscode-generate-index-standalone'
+import { join } from 'path'
+
+const indexedFileContent = await generateIndex(
+  // The file path
+  join(__dirname, '../src/index.ts'),
+  // Whether to replace the file
+  true,
+)
 ```
 
 ## License
