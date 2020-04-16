@@ -8,6 +8,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "preserveSymlinks": true,
     "strict": true,
     "newLine": "lf"

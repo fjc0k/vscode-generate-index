@@ -14,10 +14,14 @@
   "publisher": "JayFong",
   "main": "./out/extension.js",
   "bin": "./out/cli.js",
+  "files": [
+    "out"
+  ],
   "scripts": {
     "compile": "rimraf out && tsc -p tsconfig.build.json",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "release": "standard-version -a && git push --follow-tags origin master && vsce publish",
+    "release": "standard-version -a && git push --follow-tags origin master && vsce publish && npm run standalone:publish",
+    "standalone:publish": "ts-node -T ./scripts/publish-standalone.ts",
     "test": "jest",
     "vscode:prepublish": "npm run compile",
     "watch": "rimraf out && tsc -watch -p tsconfig.build.json"
@@ -80,10 +84,14 @@
     "yargs": "^15.3.1"
   },
   "devDependencies": {
+    "@types/cross-spawn": "^6.0.1",
+    "@types/fs-extra": "^8.1.0",
     "@types/jest": "^25.2.1",
     "@types/node": "^10.17.19",
     "@types/rimraf": "^3.0.0",
+    "cross-spawn": "^7.0.2",
     "eslint": "^6",
+    "fs-extra": "^9.0.0",
     "haoma": "^1.7.0",
     "husky": "^4",
     "jest": "^25.3.0",
@@ -93,11 +101,13 @@
     "standard-version": "^6.0.1",
     "tempy": "^0.5.0",
     "ts-jest": "^25.3.1",
+    "ts-node": "^8.8.2",
     "typescript": "^3",
     "vscode": "^1.1.28"
   },
   "engines": {
     "vscode": "^1.14.0"
   },
-  "icon": "assets/logo.png"
+  "icon": "assets/logo.png",
+  "packageName": "vscode-generate-index-standalone"
 }
