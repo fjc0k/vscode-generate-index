@@ -7,6 +7,7 @@ Generating file indexes easily.
 In any file, simply invoke command `Generate Index` to generate a file list.
 
 > To display the command palette, use the following keyboard shortcut, based on your installed operating system:
+>
 > - MacOS: `Command+Shift+P`
 > - Windows: `Ctrl+Shift+P`
 
@@ -57,7 +58,7 @@ You can use markers (`@index()` and `@endindex`) to tell where the index should 
 
 // @index(patterns, codeGenerator, globbyOptions)
 
-// ... The index will be (re)placed here.  
+// ... The index will be (re)placed here.
 
 // @endindex
 
@@ -95,11 +96,11 @@ function index(
 
   interface ParsedPath {
     /** The relative file path without extension, such as `./api` */
-    path: string,
+    path: string
     /** The file name without extension, such as `api` */
-    name: string,
+    name: string
     /** The file extension, such as `.js`*/
-    ext: string,
+    ext: string
   }
 
   interface ChangeCase {
@@ -108,17 +109,17 @@ function index(
 
   interface ExtraInfo {
     /** total number of items */
-    total: number,
+    total: number
     /** index of current item */
-    index: number,
+    index: number
     /** if current item is the first */
-    isFirst: boolean,
+    isFirst: boolean
     /** if current item is the last */
-    isLast: boolean,
+    isLast: boolean
     /** if current item is a directory */
-    isDir: boolean,
+    isDir: boolean
     /** if current item is a file */
-    isFile: boolean,
+    isFile: boolean
   }
   ```
 

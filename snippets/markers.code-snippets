@@ -1,9 +1,7 @@
 {
   "@index-export-all": {
     "prefix": "@index-export-all",
-    "body": [
-      "@index('./*', f => `export * from '${f.path}'`)"
-    ],
+    "body": ["@index('./*', f => `export * from '${f.path}'`)"],
     "description": "@index marker"
   },
   "@index-export-default": {
@@ -22,9 +20,7 @@
   },
   "@endindex": {
     "prefix": "@endindex",
-    "body": [
-      "@endindex"
-    ],
+    "body": ["@endindex"],
     "description": "@endindex marker"
   }
 }

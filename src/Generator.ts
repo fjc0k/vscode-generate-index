@@ -9,11 +9,11 @@ type ChangeCase = typeof changeCase
 
 interface ParsedPath {
   /** The relative file path without extension, such as `./api` */
-  path: string,
+  path: string
   /** The file name without extension, such as `api` */
-  name: string,
+  name: string
   /** The file extension, such as `.js`*/
-  ext: string,
+  ext: string
 }
 
 type Pattern = string
@@ -22,32 +22,30 @@ type CodeGenerator = (
   parsedPath: ParsedPath,
   changeCase: ChangeCase,
   extraInfo: {
-    total: number,
-    index: number,
+    total: number
+    index: number
     /** @deprecated */
-    first: boolean,
+    first: boolean
     /** @deprecated */
-    last: boolean,
-    isFirst: boolean,
-    isLast: boolean,
-    isDir: boolean,
-    isFile: boolean,
+    last: boolean
+    isFirst: boolean
+    isLast: boolean
+    isDir: boolean
+    isFile: boolean
   },
 ) => string
 
 interface Marker {
-  indent: string,
-  start: number,
-  end: number,
-  patterns: Pattern[],
-  codeGenerator: CodeGenerator,
-  globbyOptions: GlobbyOptions,
+  indent: string
+  start: number
+  end: number
+  patterns: Pattern[]
+  codeGenerator: CodeGenerator
+  globbyOptions: GlobbyOptions
 }
 
 export default class Generator {
-  constructor(
-    private document: vscode.TextDocument,
-  ) {}
+  constructor(private document: vscode.TextDocument) {}
 
   async generateIndex() {
     const currentFile = this.document.uri.fsPath
@@ -56,65 +54,56 @@ export default class Generator {
     if (markers.length) {
       const edit = new vscode.WorkspaceEdit()
       for (const marker of markers) {
-        const paths = await globby(
-          marker.patterns,
-          {
-            dot: true,
-            onlyFiles: false,
-            gitignore: false, // TODO: fix https://github.com/sindresorhus/globby/issues/133
-            ...(marker.globbyOptions || {}),
-            cwd: currentDir,
-            absolute: true,
-          },
-        )
+        const paths = await globby(marker.patterns, {
+          dot: true,
+          onlyFiles: false,
+          gitignore: false, // TODO: fix https://github.com/sindresorhus/globby/issues/133
+          ...(marker.globbyOptions || {}),
+          cwd: currentDir,
+          absolute: true,
+        })
         paths.sort(
-          new Intl.Collator(
-            ['en', 'co'],
-            {
-              sensitivity: 'base',
-              numeric: true,
-            },
-          ).compare,
+          new Intl.Collator(['en', 'co'], {
+            sensitivity: 'base',
+            numeric: true,
+          }).compare,
         )
         const codes = paths
           .filter(path => path !== currentFile)
           .map((path, index, paths) => {
             const pp = p.parse(path)
             const parsedPath: ParsedPath = {
+              // eslint-disable-next-line @typescript-eslint/no-use-before-define
               path: getRelativePath(currentDir, p.join(pp.dir, pp.name)),
               name: pp.name,
               ext: pp.ext,
             }
-            const code = marker.codeGenerator(
-              parsedPath,
-              changeCase,
-              {
-                get total() {
-                  return paths.length
-                },
-                get index() {
-                  return index
-                },
-                get first() {
-                  return index === 0
-                },
-                get last() {
-                  return index === paths.length - 1
-                },
-                get isFirst() {
-                  return index === 0
-                },
-                get isLast() {
-                  return index === paths.length - 1
-                },
-                get isDir() {
-                  return fs.statSync(path).isDirectory()
-                },
-                get isFile() {
-                  return fs.statSync(path).isFile()
-                },
+            const code = marker.codeGenerator(parsedPath, changeCase, {
+              get total() {
+                return paths.length
               },
-            )
+              get index() {
+                return index
+              },
+              get first() {
+                return index === 0
+              },
+              get last() {
+                return index === paths.length - 1
+              },
+              get isFirst() {
+                return index === 0
+              },
+              get isLast() {
+                return index === paths.length - 1
+              },
+              get isDir() {
+                return fs.statSync(path).isDirectory()
+              },
+              get isFile() {
+                return fs.statSync(path).isFile()
+              },
+            })
             return marker.indent + code
           })
         edit.replace(
@@ -140,7 +129,9 @@ export default class Generator {
     let startFrom = 0
     while (startFrom < textSize) {
       const part = text.substr(startFrom)
-      const startMatch = part.match(/([^\r\n]*)@index\(([^\r\n]+)\)[^\r\n]*(?=[\r\n]|$)/)
+      const startMatch = part.match(
+        /([^\r\n]*)@index\(([^\r\n]+)\)[^\r\n]*(?=[\r\n]|$)/,
+      )
       if (!startMatch) break
       const endMatch = part.match(/[^\r\n]*@endindex/)
       const start = startFrom + startMatch.index! + startMatch[0].length
@@ -177,9 +168,7 @@ export default class Generator {
       startFrom = end + (endMatch ? endMatch![0].length : 0)
     }
 
-    markers.sort(
-      (a, b) => b.start - a.start,
-    )
+    markers.sort((a, b) => b.start - a.start)
 
     return markers
   }

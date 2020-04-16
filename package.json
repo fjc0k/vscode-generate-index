@@ -1,81 +1,81 @@
 {
-	"name": "generate-index",
-	"displayName": "Generate Index",
-	"description": "Generating file indexes easily.",
-	"version": "0.13.0",
-	"license": "MIT",
-	"publisher": "JayFong",
-	"engines": {
-		"vscode": "^1.14.0"
-	},
-	"icon": "assets/logo.png",
-	"categories": [
-		"Other"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/fjc0k/vscode-generate-index"
-	},
-	"activationEvents": [
-		"onCommand:extension.generateIndex"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "extension.generateIndex",
-				"title": "Generate Index"
-			}
-		],
-		"keybindings": [
-			{
-				"command": "extension.generateIndex",
-				"key": "ctrl+k i",
-				"mac": "cmd+k i",
-				"when": "editorFocus"
-			}
-		],
-		"snippets": [
-			{
-				"path": "./snippets/markers.code-snippets"
-			}
-		]
-	},
-	"eslintConfig": {
-		"root": true,
-		"extends": "io",
-		"rules": {
-			"import/no-unresolved": [
-				2,
-				{
-					"ignore": [
-						"vscode"
-					]
-				}
-			]
-		}
-	},
-	"eslintIgnore": [
-		"out"
-	],
-	"scripts": {
-		"vscode:prepublish": "yarn run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"postinstall": "node ./node_modules/vscode/bin/install",
-		"release": "standard-version -a && git push --follow-tags origin master && vsce publish"
-	},
-	"devDependencies": {
-		"@types/node": "^10.12.21",
-		"eslint": "^6.0.1",
-		"eslint-config-io": "^0.5.1",
-		"standard-version": "^6.0.1",
-		"typescript": "^3.3.1",
-		"vscode": "^1.1.28"
-	},
-	"dependencies": {
-		"change-case": "^3.1.0",
-		"globby": "^10.0.0",
-		"vtils": "^2.7.1"
-	}
+  "name": "generate-index",
+  "displayName": "Generate Index",
+  "version": "0.13.0",
+  "description": "Generating file indexes easily.",
+  "categories": [
+    "Other"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fjc0k/vscode-generate-index"
+  },
+  "license": "MIT",
+  "publisher": "JayFong",
+  "main": "./out/extension.js",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "release": "standard-version -a && git push --follow-tags origin master && vsce publish",
+    "vscode:prepublish": "yarn run compile",
+    "watch": "tsc -watch -p ./"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.generateIndex",
+        "title": "Generate Index"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.generateIndex",
+        "key": "ctrl+k i",
+        "mac": "cmd+k i",
+        "when": "editorFocus"
+      }
+    ],
+    "snippets": [
+      {
+        "path": "./snippets/markers.code-snippets"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onCommand:extension.generateIndex"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{css,less,scss,sass,html,htm,vue,yml,yaml,json,md}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "change-case": "^3.1.0",
+    "globby": "^10.0.0",
+    "vtils": "^2.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^10.17.19",
+    "eslint": "^6",
+    "haoma": "^1.7.0",
+    "husky": "^4",
+    "lint-staged": "^10",
+    "prettier": "^2",
+    "standard-version": "^6.0.1",
+    "typescript": "^3",
+    "vscode": "^1.1.28"
+  },
+  "engines": {
+    "vscode": "^1.14.0"
+  },
+  "icon": "assets/logo.png"
 }
