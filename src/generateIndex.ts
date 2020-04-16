@@ -4,6 +4,7 @@ import { IndexGenerator } from './IndexGenerator'
 export async function generateIndex(
   filePath: string,
   replaceFile = false,
+  onWarning?: (msg: string) => any,
 ): Promise<string> {
   if (!existsSync(filePath)) {
     throw new Error('File not found.')
@@ -13,7 +14,7 @@ export async function generateIndex(
     filePath: filePath,
     fileContent: fileContent,
     onWarning: msg => {
-      console.warn(msg)
+      onWarning?.(msg)
     },
     onGenerate: ({ code, marker }) => {
       fileContent =

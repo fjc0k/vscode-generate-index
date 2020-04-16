@@ -86,7 +86,7 @@ export class IndexGenerator {
     }
   }
 
-  private static findMarkers(
+  public static findMarkers(
     text: string,
     onInvalid?: (msg: string) => any,
   ): Marker[] {
@@ -140,11 +140,11 @@ export class IndexGenerator {
     return markers
   }
 
-  private static normalizePath(path: string): string {
+  public static normalizePath(path: string): string {
     return path.replace(/[/\\]+/g, '/')
   }
 
-  private static getRelativePath(from: string, to: string): string {
+  public static getRelativePath(from: string, to: string): string {
     const relativePath = IndexGenerator.normalizePath(relative(from, to))
     return relativePath.startsWith('../') ? relativePath : `./${relativePath}`
   }
