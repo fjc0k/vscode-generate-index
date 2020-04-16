@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import Generator from './Generator'
+import { VSCodeIndexGenerator } from './VSCodeIndexGenerator'
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -8,7 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (!activeTextEditor) {
         return vscode.window.showWarningMessage('No active editor!')
       }
-      const generator = new Generator(activeTextEditor.document)
+      const generator = new VSCodeIndexGenerator(activeTextEditor.document)
       await generator.generateIndex()
     }),
   )

@@ -1,65 +1,33 @@
 import * as changeCase from 'change-case'
-import * as fs from 'fs'
-import * as p from 'path'
-import * as vscode from 'vscode'
 import globby, { GlobbyOptions } from 'globby'
 import { castArray, noop } from 'vtils'
+import { CodeGenerator, Marker, ParsedPath, Pattern } from './types'
+import { dirname, join, parse, relative } from 'path'
+import { statSync } from 'fs'
 
-type ChangeCase = typeof changeCase
-
-interface ParsedPath {
-  /** The relative file path without extension, such as `./api` */
-  path: string
-  /** The file name without extension, such as `api` */
-  name: string
-  /** The file extension, such as `.js`*/
-  ext: string
+export interface IndexGeneratorOptions {
+  filePath: string
+  fileContent: string
+  onGenerate: (payload: { code: string; marker: Marker }) => any
+  onWarning: (msg: string) => any
 }
 
-type Pattern = string
+export class IndexGenerator {
+  constructor(private options: IndexGeneratorOptions) {}
 
-type CodeGenerator = (
-  parsedPath: ParsedPath,
-  changeCase: ChangeCase,
-  extraInfo: {
-    total: number
-    index: number
-    /** @deprecated */
-    first: boolean
-    /** @deprecated */
-    last: boolean
-    isFirst: boolean
-    isLast: boolean
-    isDir: boolean
-    isFile: boolean
-  },
-) => string
-
-interface Marker {
-  indent: string
-  start: number
-  end: number
-  patterns: Pattern[]
-  codeGenerator: CodeGenerator
-  globbyOptions: GlobbyOptions
-}
-
-export default class Generator {
-  constructor(private document: vscode.TextDocument) {}
-
-  async generateIndex() {
-    const currentFile = this.document.uri.fsPath
-    const currentDir = p.dirname(currentFile)
-    const markers = this.findMarkers()
+  public async generate() {
+    const { filePath, fileContent, onWarning, onGenerate } = this.options
+    const fileDir = dirname(filePath)
+    const markers = IndexGenerator.findMarkers(fileContent, onWarning)
     if (markers.length) {
-      const edit = new vscode.WorkspaceEdit()
       for (const marker of markers) {
         const paths = await globby(marker.patterns, {
           dot: true,
           onlyFiles: false,
-          gitignore: false, // TODO: fix https://github.com/sindresorhus/globby/issues/133
+          // TODO: fix https://github.com/sindresorhus/globby/issues/133
+          gitignore: false,
           ...(marker.globbyOptions || {}),
-          cwd: currentDir,
+          cwd: fileDir,
           absolute: true,
         })
         paths.sort(
@@ -69,12 +37,14 @@ export default class Generator {
           }).compare,
         )
         const codes = paths
-          .filter(path => path !== currentFile)
+          .filter(path => path !== filePath)
           .map((path, index, paths) => {
-            const pp = p.parse(path)
+            const pp = parse(path)
             const parsedPath: ParsedPath = {
-              // eslint-disable-next-line @typescript-eslint/no-use-before-define
-              path: getRelativePath(currentDir, p.join(pp.dir, pp.name)),
+              path: IndexGenerator.getRelativePath(
+                fileDir,
+                join(pp.dir, pp.name),
+              ),
               name: pp.name,
               ext: pp.ext,
             }
@@ -98,33 +68,30 @@ export default class Generator {
                 return index === paths.length - 1
               },
               get isDir() {
-                return fs.statSync(path).isDirectory()
+                return statSync(path).isDirectory()
               },
               get isFile() {
-                return fs.statSync(path).isFile()
+                return statSync(path).isFile()
               },
             })
             return marker.indent + code
           })
-        edit.replace(
-          this.document.uri,
-          new vscode.Range(
-            this.document.positionAt(marker.start),
-            this.document.positionAt(marker.end),
-          ),
-          `${marker.start === 0 ? '' : '\n'}${codes.join('\n')}\n`,
-        )
+        await onGenerate({
+          marker: marker,
+          code: `${marker.start === 0 ? '' : '\n'}${codes.join('\n')}\n`,
+        })
       }
-      await vscode.workspace.applyEdit(edit)
     } else {
-      vscode.window.showInformationMessage('No @index maker found.')
+      onWarning('No @index maker found.')
     }
   }
 
-  findMarkers(): Marker[] {
+  private static findMarkers(
+    text: string,
+    onInvalid?: (msg: string) => any,
+  ): Marker[] {
     const markers: Marker[] = []
 
-    const text = this.document.getText()
     const textSize = text.length
     let startFrom = 0
     while (startFrom < textSize) {
@@ -161,7 +128,7 @@ export default class Generator {
           globbyOptions: globbyOptions,
         })
       } catch (e) {
-        vscode.window.showWarningMessage(
+        onInvalid?.(
           `[SKIP] Invalid patterns or code generator. (${startMatch[0].trim()})`,
         )
       }
@@ -172,13 +139,13 @@ export default class Generator {
 
     return markers
   }
-}
 
-function normalizePath(path: string): string {
-  return path.replace(/[/\\]+/g, '/')
-}
+  private static normalizePath(path: string): string {
+    return path.replace(/[/\\]+/g, '/')
+  }
 
-function getRelativePath(from: string, to: string): string {
-  const relativePath = normalizePath(p.relative(from, to))
-  return relativePath.startsWith('../') ? relativePath : `./${relativePath}`
+  private static getRelativePath(from: string, to: string): string {
+    const relativePath = IndexGenerator.normalizePath(relative(from, to))
+    return relativePath.startsWith('../') ? relativePath : `./${relativePath}`
+  }
 }
