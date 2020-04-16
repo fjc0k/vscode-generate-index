@@ -8,8 +8,8 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ../scss/b.scss
 ../scss/c.scss
 ../scss/index.scss
-../sort/1.ts
 ../sort/001.ts
+../sort/1.ts
 ../sort/2.ts
 ../sort/11.ts
 ../sort/884.ts
@@ -56,8 +56,8 @@ exports[`ok: generated content of /scss/index.scss 1`] = `
 
 exports[`ok: generated content of /sort/index.ts 1`] = `
 "// @index('./*.ts', f => \`export * from '\${f.path}'\`)
-export * from './1'
 export * from './001'
+export * from './1'
 export * from './2'
 export * from './11'
 export * from './884'
@@ -73,8 +73,8 @@ export * from './国家'
 
 exports[`ok: generated content of /sort/index2.ts 1`] = `
 "// @index('./*.ts', f => \`export * from '\${f.path}'\`)
-export * from './1'
 export * from './001'
+export * from './1'
 export * from './2'
 export * from './11'
 export * from './884'

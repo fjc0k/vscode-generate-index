@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`normal: file content 1`] = `
+"// @index('./*', f => \`export * from '\${f.path}'\`)
+// @endindex"
+`;
+
+exports[`normal: generated content 1`] = `
+"// @index('./*', f => \`export * from '\${f.path}'\`)
+export * from './_8'
+export * from './1'
+export * from './x'
+export * from './国家'
+// @endindex"
+`;
+
+exports[`not found 1`] = `[Error: File not found.]`;
+
+exports[`replace: file content 1`] = `
+"// @index('./*', f => \`export * from '\${f.path}'\`)
+export * from './_8'
+export * from './1'
+export * from './x'
+export * from './国家'
+// @endindex"
+`;
+
+exports[`replace: generated content 1`] = `
+"// @index('./*', f => \`export * from '\${f.path}'\`)
+export * from './_8'
+export * from './1'
+export * from './x'
+export * from './国家'
+// @endindex"
+`;
