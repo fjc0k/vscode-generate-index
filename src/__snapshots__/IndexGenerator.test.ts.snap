@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ok: generated content of /cross/index.txt 1`] = `
+"# @index('../**/*', f => \`\${f.path}\${f.ext}\`, { onlyFiles: true })
+../invalid/empty
+../invalid/error
+../scss/a.scss
+../scss/b.scss
+../scss/c.scss
+../scss/index.scss
+../sort/1.ts
+../sort/001.ts
+../sort/2.ts
+../sort/11.ts
+../sort/884.ts
+../sort/a.ts
+../sort/abc.ts
+../sort/bbb.ts
+../sort/c.ts
+../sort/index.ts
+../sort/index2.ts
+../sort/国家.ts
+# @endindex
+
+# @index('../**/*', f => \`\${f.path}\${f.ext}\`, { onlyDirectories: true })
+./
+../invalid
+../scss
+../sort
+# @endindex
+
+    ! @index('../**/*.scss', (f, _, {isFirst}) => \`\${isFirst ? '****' : ''}\${f.path}\${f.ext}\`)
+    ****../scss/a.scss
+    ../scss/b.scss
+    ../scss/c.scss
+    ../scss/index.scss
+    ! @endindex
+"
+`;
+
+exports[`ok: generated content of /invalid/empty 1`] = `""`;
+
+exports[`ok: generated content of /invalid/error 1`] = `
+"// @index(\\"./*', f => \`export * from '\${f.path}'\`)
+"
+`;
+
+exports[`ok: generated content of /scss/index.scss 1`] = `
+"// @index('./*', f => \`@import '\${f.path}\${f.ext}';\`)
+@import './a.scss';
+@import './b.scss';
+@import './c.scss';
+// @endindex
+"
+`;
+
+exports[`ok: generated content of /sort/index.ts 1`] = `
+"// @index('./*.ts', f => \`export * from '\${f.path}'\`)
+export * from './1'
+export * from './001'
+export * from './2'
+export * from './11'
+export * from './884'
+export * from './a'
+export * from './abc'
+export * from './bbb'
+export * from './c'
+export * from './index2'
+export * from './国家'
+// @endindex
+"
+`;
+
+exports[`ok: generated content of /sort/index2.ts 1`] = `
+"// @index('./*.ts', f => \`export * from '\${f.path}'\`)
+export * from './1'
+export * from './001'
+export * from './2'
+export * from './11'
+export * from './884'
+export * from './a'
+export * from './abc'
+export * from './bbb'
+export * from './c'
+export * from './index'
+export * from './国家'
+"
+`;
+
+exports[`ok: messages of /cross/index.txt 1`] = `Array []`;
+
+exports[`ok: messages of /invalid/empty 1`] = `
+Array [
+  "No @index maker found.",
+]
+`;
+
+exports[`ok: messages of /invalid/error 1`] = `
+Array [
+  "[SKIP] Invalid patterns or code generator. (// @index(\\"./*', f => \`export * from '\${f.path}'\`))",
+  "No @index maker found.",
+]
+`;
+
+exports[`ok: messages of /scss/index.scss 1`] = `Array []`;
+
+exports[`ok: messages of /sort/index.ts 1`] = `Array []`;
+
+exports[`ok: messages of /sort/index2.ts 1`] = `Array []`;

@@ -1,0 +1,8 @@
+# @index('../**/*', f => `${f.path}${f.ext}`, { onlyFiles: true })
+# @endindex
+
+# @index('../**/*', f => `${f.path}${f.ext}`, { onlyDirectories: true })
+# @endindex
+
+    ! @index('../**/*.scss', (f, _, {isFirst}) => `${isFirst ? '****' : ''}${f.path}${f.ext}`)
+    ! @endindex
