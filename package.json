@@ -18,12 +18,11 @@
     "out"
   ],
   "scripts": {
+    "bundle": "rimraf dist && bili",
     "compile": "rimraf out && tsc -p tsconfig.build.json",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "release": "standard-version -a && git push --follow-tags origin master && vsce publish && npm run standalone:publish",
-    "standalone:publish": "ts-node -T ./scripts/publish-standalone.ts",
+    "release": "standard-version -a && git push --follow-tags origin master && npm run compile && npm run bundle && ts-node -T ./scripts/publish-vsce.ts && ts-node -T ./scripts/publish-standalone.ts",
     "test": "jest",
-    "vscode:prepublish": "npm run compile",
     "watch": "rimraf out && tsc -watch -p tsconfig.build.json"
   },
   "contributes": {
@@ -90,14 +89,16 @@
     "@types/jest": "^25.2.1",
     "@types/node": "^10.17.19",
     "@types/rimraf": "^3.0.0",
+    "bili": "^4.9.0",
     "cross-spawn": "^7.0.2",
     "eslint": "^6",
-    "haoma": "^1.7.0",
+    "haoma": "^1.8.0",
     "husky": "^4",
     "jest": "^25.3.0",
     "lint-staged": "^10",
     "prettier": "^2",
     "rimraf": "^3.0.2",
+    "rollup-plugin-typescript2": "^0.27.0",
     "standard-version": "^6.0.1",
     "tempy": "^0.5.0",
     "ts-jest": "^25.3.1",
