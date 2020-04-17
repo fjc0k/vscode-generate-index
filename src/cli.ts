@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-import globby from 'globby'
 import yargs from 'yargs'
-import { generateIndex } from './generateIndex'
+import { generateManyIndex } from './generateIndex'
 import { IndexGenerator } from './IndexGenerator'
 
 const argv = yargs
@@ -13,23 +12,29 @@ const argv = yargs
     describe: 'Current working directory',
     default: process.cwd(),
   })
+  .option('debug', {
+    type: 'boolean',
+    describe: 'Debug mode',
+    default: false,
+  })
   // Show help if no args
   // ref: https://github.com/yargs/yargs/issues/895
   .demandCommand(1, '').argv
 
-const filePaths = !argv._.length
-  ? []
-  : globby.sync(argv._, {
-      absolute: true,
-      cwd: argv.cwd,
-      dot: true,
-      onlyFiles: true,
-      unique: true,
-      gitignore: false,
-    })
-
-for (const filePath of filePaths) {
-  generateIndex(filePath, true).then(() => {
+generateManyIndex({
+  patterns: argv._,
+  replaceFile: true,
+  cwd: argv.cwd,
+  onSuccess: filePath => {
     console.log(`✔️ ${IndexGenerator.getRelativePath(argv.cwd, filePath)}`)
-  })
-}
+  },
+  onWarning: (filePath, msg) => {
+    if (argv.debug) {
+      console.warn(
+        `⚠️ ${msg} <${IndexGenerator.getRelativePath(argv.cwd, filePath)}>`,
+      )
+    }
+  },
+}).catch(err => {
+  throw err
+})

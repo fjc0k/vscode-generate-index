@@ -186,15 +186,19 @@ pnpx vscode-generate-index-standalone src/ scripts/
 #### API
 
 ```js
-import { generateIndex } from 'vscode-generate-index-standalone'
+import { generateIndex, generateManyIndex } from 'vscode-generate-index-standalone'
 import { join } from 'path'
 
-const indexedFileContent = await generateIndex(
-  // The file path
-  join(__dirname, '../src/index.ts'),
-  // Whether to replace the file
-  true,
-)
+const generateResult = await generateIndex({
+  filePath: join(__dirname, '../src/index.ts'),
+  replaceFile: true,
+}
+
+const generateManyResult = await generateManyIndex({
+  patterns: ['../src/**/index.ts', '!**/ignore/index.ts'],
+  cwd: __dirname,
+  replaceFile: true,
+})
 ```
 
 ## License

@@ -15,7 +15,7 @@ export interface IndexGeneratorOptions {
 export class IndexGenerator {
   constructor(private options: IndexGeneratorOptions) {}
 
-  public async generate() {
+  public async generate(): Promise<false | void> {
     const { filePath, fileContent, onWarning, onGenerate } = this.options
     const fileDir = dirname(filePath)
     const markers = IndexGenerator.findMarkers(fileContent, onWarning)
@@ -83,6 +83,7 @@ export class IndexGenerator {
       }
     } else {
       onWarning('No @index maker found.')
+      return false
     }
   }
 

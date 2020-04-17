@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "ES6",
+    "target": "ES2018",
     "outDir": "out",
-    "lib": ["ES6"],
+    "lib": ["ES2018"],
     "sourceMap": true,
     "declaration": true,
     "esModuleInterop": true,

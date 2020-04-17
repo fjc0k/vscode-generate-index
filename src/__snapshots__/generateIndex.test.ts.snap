@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`many: res[0].generatedFileContent 1`] = `
+"// @index('./*', f => \`export * from '\${f.path}'\`)
+export * from './_8'
+export * from './1'
+export * from './x'
+export * from './国家'
+// @endindex"
+`;
+
+exports[`many: successMsgs 1`] = `
+Array [
+  "index.ts",
+]
+`;
+
+exports[`many: warningMsgs 1`] = `
+Array [
+  "1.ts: No @index maker found.",
+  "_8.ts: No @index maker found.",
+  "国家.ts: No @index maker found.",
+  "x.ts: No @index maker found.",
+]
+`;
+
 exports[`normal: file content 1`] = `
 "// @index('./*', f => \`export * from '\${f.path}'\`)
 // @endindex"
@@ -13,8 +37,6 @@ export * from './x'
 export * from './国家'
 // @endindex"
 `;
-
-exports[`not found 1`] = `[Error: File not found.]`;
 
 exports[`replace: file content 1`] = `
 "// @index('./*', f => \`export * from '\${f.path}'\`)
