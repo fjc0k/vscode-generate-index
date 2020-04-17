@@ -97,8 +97,8 @@ Array [
 
 exports[`ok: messages of /invalid/error 1`] = `
 Array [
-  "[SKIP] Invalid patterns or code generator. (// @index(\\"./*', f => \`export * from '\${f.path}'\`))",
   "No @index maker found.",
+  "[SKIP] Invalid patterns or code generator. (// @index(\\"./*', f => \`export * from '\${f.path}'\`))",
 ]
 `;
 

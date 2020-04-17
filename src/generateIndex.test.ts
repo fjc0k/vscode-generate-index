@@ -78,6 +78,6 @@ test('many', async () => {
   expect(res[0].generatedFileContent).toMatchSnapshot(
     'res[0].generatedFileContent',
   )
-  expect(successMsgs).toMatchSnapshot('successMsgs')
-  expect(warningMsgs).toMatchSnapshot('warningMsgs')
+  expect(successMsgs.sort()).toMatchSnapshot('successMsgs')
+  expect(warningMsgs.sort()).toMatchSnapshot('warningMsgs')
 })

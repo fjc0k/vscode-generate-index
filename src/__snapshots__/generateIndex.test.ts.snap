@@ -19,8 +19,8 @@ exports[`many: warningMsgs 1`] = `
 Array [
   "1.ts: No @index maker found.",
   "_8.ts: No @index maker found.",
-  "国家.ts: No @index maker found.",
   "x.ts: No @index maker found.",
+  "国家.ts: No @index maker found.",
 ]
 `;
 

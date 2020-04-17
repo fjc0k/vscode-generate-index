@@ -34,6 +34,6 @@ test('ok', async () => {
       '',
     )
     expect(fileContent).toMatchSnapshot(`generated content of ${humanFilePath}`)
-    expect(msgs).toMatchSnapshot(`messages of ${humanFilePath}`)
+    expect(msgs.sort()).toMatchSnapshot(`messages of ${humanFilePath}`)
   }
 })

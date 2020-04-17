@@ -19,7 +19,8 @@ export async function generateIndex(
   if (!(await pathExists(filePath))) {
     throw new Error(`File not found. <${filePath}>`)
   }
-  let fileContent = (await readFile(filePath)).toString()
+  const fileContent = (await readFile(filePath)).toString()
+  let generatedFileContent = fileContent
   const generator = new IndexGenerator({
     filePath: filePath,
     fileContent: fileContent,
@@ -27,17 +28,21 @@ export async function generateIndex(
       onWarning?.(msg)
     },
     onGenerate: ({ code, marker }) => {
-      fileContent =
-        fileContent.substr(0, marker.start) +
+      generatedFileContent =
+        generatedFileContent.substr(0, marker.start) +
         code +
-        fileContent.substr(marker.end, fileContent.length)
+        generatedFileContent.substr(marker.end, generatedFileContent.length)
     },
   })
   const generateResult = await generator.generate()
-  if (generateResult !== false && replaceFile) {
-    await writeFile(filePath, fileContent)
+  if (
+    generateResult !== false &&
+    replaceFile &&
+    generatedFileContent !== fileContent
+  ) {
+    await writeFile(filePath, generatedFileContent)
   }
-  return generateResult === false ? false : fileContent
+  return generateResult === false ? false : generatedFileContent
 }
 
 export interface GenerateManyIndexPayload {
