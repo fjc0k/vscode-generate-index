@@ -7,7 +7,13 @@ import { sync as rmrf } from 'rimraf'
 
 const packageInfo: Record<keyof typeof pkg, any> = {
   ...pkg,
-  main: './dist/extension.js',
+  'main': './dist/extension.js',
+  'dependencies': undefined,
+  'devDependencies': undefined,
+  'scripts': undefined,
+  'jest': undefined,
+  'lint-staged': undefined,
+  'husky': undefined,
 }
 
 const packageDir = tmp.directory()
