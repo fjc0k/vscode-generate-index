@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/fjc0k/vscode-generate-index/compare/v1.1.0...v1.1.1) (2020-04-17)
+
+### Bug Fixes
+
+- **api:** write files only when changed ([80e45c3](https://github.com/fjc0k/vscode-generate-index/commit/80e45c3))
+
 ## [1.1.0](https://github.com/fjc0k/vscode-generate-index/compare/v1.0.0...v1.1.0) (2020-04-17)
 
 ### Features
