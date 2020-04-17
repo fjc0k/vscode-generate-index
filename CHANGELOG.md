@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/fjc0k/vscode-generate-index/compare/v1.0.0...v1.1.0) (2020-04-17)
+
+### Features
+
+- **api:** add generateManyIndex ([30f0320](https://github.com/fjc0k/vscode-generate-index/commit/30f0320))
+
 ## [1.0.0](https://github.com/fjc0k/vscode-generate-index/compare/v0.13.0...v1.0.0) (2020-04-16)
 
 ### Features
