@@ -12,6 +12,11 @@ const argv = yargs
     describe: 'Current working directory',
     default: process.cwd(),
   })
+  .option('watch', {
+    alias: 'w',
+    type: 'array',
+    describe: 'Watch paths',
+  })
   .option('debug', {
     type: 'boolean',
     describe: 'Debug mode',
@@ -25,6 +30,7 @@ generateManyIndex({
   patterns: argv._,
   replaceFile: true,
   cwd: argv.cwd,
+  watch: argv.watch as any,
   onSuccess: filePath => {
     console.log(`✔️ ${IndexGenerator.getRelativePath(argv.cwd, filePath)}`)
   },
