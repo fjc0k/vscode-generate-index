@@ -1,7 +1,7 @@
 {
   "name": "generate-index",
   "displayName": "Generate Index",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Generating file indexes easily.",
   "categories": [
     "Other"
