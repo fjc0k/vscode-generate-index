@@ -27,7 +27,7 @@ const argv = yargs
   .demandCommand(1, '').argv
 
 generateManyIndex({
-  patterns: argv._,
+  patterns: argv._.map(String),
   replaceFile: true,
   cwd: argv.cwd,
   watch: argv.watch as any,

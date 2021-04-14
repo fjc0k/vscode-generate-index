@@ -11,6 +11,16 @@
     "resolveJsonModule": true,
     "preserveSymlinks": true,
     "strict": true,
-    "newLine": "lf"
+    "newLine": "lf",
+    "plugins": [
+      {
+        "name": "typescript-snapshots-plugin",
+        "snapshotCallIdentifiers": [
+          "toMatchSnapshot",
+          "toThrowErrorMatchingSnapshot",
+          "toMatchDiffSnapshot"
+        ]
+      }
+    ]
   }
 }

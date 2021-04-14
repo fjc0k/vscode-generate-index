@@ -1,9 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ok: generated content of /all_ts_tsx/index.ts 1`] = `
+"// @index(['./*.{ts,tsx}', './*/index.{ts,tsx}'], f => \`export * from '\${f.path.replace(/\\\\/index$/, '')}'\`)
+export * from './a'
+export * from './b'
+export * from './c'
+export * from './d'
+export * from './j'
+// @endindex
+"
+`;
+
 exports[`ok: generated content of /cross/index.txt 1`] = `
 "# @index('../**/*', f => \`\${f.path}\${f.ext}\`, { onlyFiles: true })
+../all_ts_tsx/a.ts
+../all_ts_tsx/b.ts
+../all_ts_tsx/c.tsx
+../all_ts_tsx/d/index.ts
+../all_ts_tsx/e/hello.ts
+../all_ts_tsx/index.ts
+../all_ts_tsx/j/index.tsx
 ../invalid/empty
 ../invalid/error
+../scripts/index.html
+../scripts/jssdk.js
+../scripts/polyfill.js
 ../scss/a.scss
 ../scss/b.scss
 ../scss/c.scss
@@ -20,13 +41,26 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ../sort/index.ts
 ../sort/index2.ts
 ../sort/国家.ts
+../types/icons/arrow.svg
+../types/icons/home.svg
+../types/icons/pass.svg
+../types/icons/picture.svg
+../types/icons/user.svg
+../types/index.ts
 # @endindex
 
 # @index('../**/*', f => \`\${f.path}\${f.ext}\`, { onlyDirectories: true })
+../all_ts_tsx
+../all_ts_tsx/d
+../all_ts_tsx/e
+../all_ts_tsx/j
 ./
 ../invalid
+../scripts
 ../scss
 ../sort
+../types
+../types/icons
 # @endindex
 
     ! @index('../**/*.scss', (f, _, {isFirst}) => \`\${isFirst ? '****' : ''}\${f.path}\${f.ext}\`)
@@ -42,6 +76,21 @@ exports[`ok: generated content of /invalid/empty 1`] = `""`;
 
 exports[`ok: generated content of /invalid/error 1`] = `
 "// @index(\\"./*', f => \`export * from '\${f.path}'\`)
+"
+`;
+
+exports[`ok: generated content of /scripts/index.html 1`] = `
+"<html>
+  <head>
+    <!-- @index('./*.js', f => \`<script type=\\"text/javascript\\" src=\\"\${f.path}\${f.ext}\\"></script>\`) -->
+    <script type=\\"text/javascript\\" src=\\"./jssdk.js\\"></script>
+    <script type=\\"text/javascript\\" src=\\"./polyfill.js\\"></script>
+    <!-- @endindex -->
+  </head>
+  <body>
+    ...
+  </body>
+</html>
 "
 `;
 
@@ -87,6 +136,20 @@ export * from './国家'
 "
 `;
 
+exports[`ok: generated content of /types/index.ts 1`] = `
+"export type IconName =
+  // @index(['./icons/*.svg'], (f, _, e) => \`'\${f.name}'\${e.isLast ? '' : ' |'}\`)
+  'arrow' |
+  'home' |
+  'pass' |
+  'picture' |
+  'user'
+  // @endindex
+"
+`;
+
+exports[`ok: messages of /all_ts_tsx/index.ts 1`] = `Array []`;
+
 exports[`ok: messages of /cross/index.txt 1`] = `Array []`;
 
 exports[`ok: messages of /invalid/empty 1`] = `
@@ -102,8 +165,12 @@ Array [
 ]
 `;
 
+exports[`ok: messages of /scripts/index.html 1`] = `Array []`;
+
 exports[`ok: messages of /scss/index.scss 1`] = `Array []`;
 
 exports[`ok: messages of /sort/index.ts 1`] = `Array []`;
 
 exports[`ok: messages of /sort/index2.ts 1`] = `Array []`;
+
+exports[`ok: messages of /types/index.ts 1`] = `Array []`;

@@ -65,6 +65,47 @@ In any file, simply invoke command `Generate Index` to generate a file list.
   // @endindex
   ```
 
+- Example 4: exports all `./*.tsx?` and `./*/index.tsx?` files.
+
+  ```js
+  // @index(['./*.{ts,tsx}', './*/index.{ts,tsx}'], f => `export * from '${f.path.replace(/\/index$/, '')}'`)
+  export * from './components'
+  export * from './types'
+  export * from './utils'
+  // @endindex
+  ```
+
+- Example 5: produces the type of the `IconName`
+
+  <!-- prettier-ignore -->
+  ```js
+  export type IconName =
+    // @index(['./icons/*.svg'], (f, _, e) => `'${f.name}'${e.isLast ? '' : ' |'}`)
+    'arrow' |
+    'home' |
+    'pass' |
+    'picture' |
+    'user'
+    // @endindex
+  ```
+
+- Example 6: imports all scripts
+
+  <!-- prettier-ignore -->
+  ```html
+  <html>
+    <head>
+      <!-- @index('./*.js', f => `<script type="text/javascript" src="${f.path}${f.ext}"></script>`) -->
+      <script type="text/javascript" src="./jssdk.js"></script>
+      <script type="text/javascript" src="./polyfill.js"></script>
+      <!-- @endindex -->
+    </head>
+    <body>
+      ...
+    </body>
+  </html>
+  ```
+
 ## @index()
 
 `index` is a function, used for producing index:
