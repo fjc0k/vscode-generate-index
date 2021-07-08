@@ -12,6 +12,7 @@ const indexFilePaths = [
   join(__dirname, './__fixtures__/all_ts_tsx/index.ts'),
   join(__dirname, './__fixtures__/types/index.ts'),
   join(__dirname, './__fixtures__/scripts/index.html'),
+  join(__dirname, './__fixtures__/cross_negative/index.txt'),
 ]
 
 test('ok', async () => {

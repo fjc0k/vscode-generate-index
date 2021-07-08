@@ -1,6 +1,6 @@
 import chokidar from 'chokidar'
 import globby from 'globby'
-import onExit from 'signal-exit'
+import onExit from 'exit-hook'
 import { IndexGenerator } from './IndexGenerator'
 import { Merge, throttle } from 'vtils'
 import { pathExists, readFile, writeFile } from 'fs-extra'

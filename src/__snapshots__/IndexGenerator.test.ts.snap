@@ -20,6 +20,7 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ../all_ts_tsx/e/hello.ts
 ../all_ts_tsx/index.ts
 ../all_ts_tsx/j/index.tsx
+../cross_negative/index.txt
 ../invalid/empty
 ../invalid/error
 ../scripts/index.html
@@ -55,6 +56,7 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ../all_ts_tsx/e
 ../all_ts_tsx/j
 ./
+../cross_negative
 ../invalid
 ../scripts
 ../scss
@@ -69,6 +71,19 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
     ../scss/c.scss
     ../scss/index.scss
     ! @endindex
+"
+`;
+
+exports[`ok: generated content of /cross_negative/index.txt 1`] = `
+"# @index(['../*', '!../scss'], f => \`\${f.path}\${f.ext}\`)
+../all_ts_tsx
+../cross
+./
+../invalid
+../scripts
+../sort
+../types
+# @endindex
 "
 `;
 
@@ -151,6 +166,8 @@ exports[`ok: generated content of /types/index.ts 1`] = `
 exports[`ok: messages of /all_ts_tsx/index.ts 1`] = `Array []`;
 
 exports[`ok: messages of /cross/index.txt 1`] = `Array []`;
+
+exports[`ok: messages of /cross_negative/index.txt 1`] = `Array []`;
 
 exports[`ok: messages of /invalid/empty 1`] = `
 Array [

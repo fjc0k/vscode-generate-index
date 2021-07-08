@@ -1,0 +1,2 @@
+# @index(['../*', '!../scss'], f => `${f.path}${f.ext}`)
+# @endindex
