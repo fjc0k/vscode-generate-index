@@ -2,8 +2,7 @@ import tmp from 'tempy'
 import { basename, join } from 'path'
 import { dedent } from 'vtils'
 import { generateIndex, generateManyIndex } from './generateIndex'
-import { readFileSync, writeFileSync } from 'fs'
-import { sync as rmrf } from 'rimraf'
+import { readFileSync, removeSync, writeFileSync } from 'fs-extra'
 
 let dir: string
 
@@ -23,7 +22,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  rmrf(dir)
+  removeSync(dir)
 })
 
 test('normal', async () => {
