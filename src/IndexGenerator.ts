@@ -114,6 +114,9 @@ export class IndexGenerator {
         localCodeGenerator: CodeGenerator,
         localGlobbyOptions: GlobbyOptions,
       ) {
+        if (localPatterns == null) {
+          throw new TypeError('Invalid patterns')
+        }
         patterns = castArray(localPatterns)
         codeGenerator = localCodeGenerator
         globbyOptions = localGlobbyOptions

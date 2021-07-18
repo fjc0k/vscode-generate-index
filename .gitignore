@@ -4,7 +4,6 @@ out
 dist
 .rpt2_cache
 package-lock.json
-yarn.lock
 pnpm-lock.yaml
 example
 /packages

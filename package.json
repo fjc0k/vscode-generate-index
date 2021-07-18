@@ -21,9 +21,7 @@
     "out"
   ],
   "scripts": {
-    "bundle": "rimraf dist && ts-node -T ./scripts/bundle.ts",
-    "make-vscode-package": "ts-node -T ./scripts/make-vscode-package.ts",
-    "make-npm-package": "ts-node -T ./scripts/make-npm-package.ts",
+    "bundle": "rimraf dist && ts-node -T ./scripts/bundle.ts && ts-node -T ./scripts/make-vscode-package.ts && ts-node -T ./scripts/make-npm-package.ts",
     "compile": "rimraf out && tsc -p tsconfig.build.json",
     "preinstall": "npx only-allow yarn",
     "postinstall": "node ./node_modules/vscode/bin/install",
