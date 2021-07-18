@@ -22,12 +22,13 @@
   ],
   "scripts": {
     "bundle": "rimraf dist && ts-node -T ./scripts/bundle.ts && ts-node -T ./scripts/make-vscode-package.ts && ts-node -T ./scripts/make-npm-package.ts",
-    "compile": "rimraf out && tsc -p tsconfig.build.json",
-    "preinstall": "npx only-allow yarn",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "release": "standard-version -a && git push --follow-tags origin master && npm run compile && npm run bundle && ts-node -T ./scripts/publish-vsce.ts && ts-node -T ./scripts/publish-standalone.ts",
+    "release": "standard-version -a && git push --follow-tags origin master && npm run bundle && npm run publish-vscode && npm run publish-npm",
+    "watch": "rimraf out && tsc -watch -p tsconfig.build.json",
     "test": "jest",
-    "watch": "rimraf out && tsc -watch -p tsconfig.build.json"
+    "publish-vscode": "cd packages/vscode && vsce publish",
+    "publish-npm": "cd packages/npm && npm publish",
+    "preinstall": "npx only-allow yarn",
+    "postinstall": "node ./node_modules/vscode/bin/install"
   },
   "contributes": {
     "commands": [
