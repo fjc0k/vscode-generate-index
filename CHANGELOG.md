@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/fjc0k/vscode-generate-index/compare/v1.4.0...v1.4.1) (2021-07-18)
+
+### Bug Fixes
+
+- lock fast-glob to 3.2.5 ([580684d](https://github.com/fjc0k/vscode-generate-index/commit/580684d))
+
 ## [1.4.0](https://github.com/fjc0k/vscode-generate-index/compare/v1.3.0...v1.4.0) (2021-04-14)
 
 ### Features
