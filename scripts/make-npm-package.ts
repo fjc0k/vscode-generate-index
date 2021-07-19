@@ -22,10 +22,12 @@ async function main() {
         'vscode-generate-index-standalone': './dist/cli.js',
       },
       files: ['dist'],
-      dependencies: {
-        fsevents: `^${require('fsevents/package.json').version}`,
+      optionalDependencies: {
+        fsevents: `~${require('fsevents/package.json').version}`,
       } as any,
-    } as typeof pkg,
+    } as typeof pkg & {
+      optionalDependencies?: Record<string, string>
+    },
     {
       spaces: 2,
     },
