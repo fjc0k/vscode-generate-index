@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/fjc0k/vscode-generate-index/compare/v1.4.1...v1.4.2) (2021-07-19)
+
+### Bug Fixes
+
+- move fsevents to optionalDependencies ([f1ab602](https://github.com/fjc0k/vscode-generate-index/commit/f1ab602))
+
 ### [1.4.1](https://github.com/fjc0k/vscode-generate-index/compare/v1.4.0...v1.4.1) (2021-07-18)
 
 ### Bug Fixes
