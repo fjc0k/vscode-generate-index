@@ -93,6 +93,7 @@ export class IndexGenerator {
             'utf-8',
           )
           const region = sourceContent.match(marker.regionRe)?.[0] || ''
+          // @ts-ignore
           const matches = [...(region.matchAll(marker.matchRe) || [])]
           const codes = matches.map((match, index, { length }) => {
             const code = marker.codeGeneratorRe(match, changeCase, {
