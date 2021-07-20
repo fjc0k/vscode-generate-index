@@ -23,6 +23,7 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ../cross_negative/index.txt
 ../invalid/empty
 ../invalid/error
+../re/index.js
 ../scripts/index.html
 ../scripts/jssdk.js
 ../scripts/polyfill.js
@@ -58,6 +59,7 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ./
 ../cross_negative
 ../invalid
+../re
 ../scripts
 ../scss
 ../sort
@@ -80,6 +82,7 @@ exports[`ok: generated content of /cross_negative/index.txt 1`] = `
 ../cross
 ./
 ../invalid
+../re
 ../scripts
 ../sort
 ../types
@@ -92,6 +95,45 @@ exports[`ok: generated content of /invalid/empty 1`] = `""`;
 exports[`ok: generated content of /invalid/error 1`] = `
 "// @index(\\"./*', f => \`export * from '\${f.path}'\`)
 "
+`;
+
+exports[`ok: generated content of /re/index.js 1`] = `
+"// @index('../../../node_modules/fs-extra/lib/index.js', /\\\\.\\\\.\\\\.require\\\\('(.+?)'\\\\)/g, (m, _) => \`\${_.camel(m[1])}\`)
+fs
+copySync
+copy
+empty
+ensure
+json
+mkdirs
+moveSync
+move
+output
+pathExists
+remove
+// @endindex
+
+// @index('../../../node_modules/fs-extra/package.json', /(?<=\\"dependencies\\": \\\\{).+?(?=\\\\})/s, /\\"(.+?)\\": \\"(.+?)\\"/g, (m, _, e) => \`\${e.index}. \${m[1]} ==> \${m[2]}\`)
+0. at-least-node ==> ^1.0.0
+1. graceful-fs ==> ^4.2.0
+2. jsonfile ==> ^6.0.1
+3. universalify ==> ^2.0.0
+// @endindex
+
+  // @index('../../../node_modules/fs-extra/lib/index.js', /\\\\.\\\\.\\\\.require\\\\('(.+?)'\\\\)/g, (m, _) => \`\${_.camel(m[1])}\`)
+  fs
+  copySync
+  copy
+  empty
+  ensure
+  json
+  mkdirs
+  moveSync
+  move
+  output
+  pathExists
+  remove
+  // @endindex"
 `;
 
 exports[`ok: generated content of /scripts/index.html 1`] = `
@@ -181,6 +223,8 @@ Array [
   "[SKIP] Invalid patterns or code generator. (// @index(\\"./*', f => \`export * from '\${f.path}'\`))",
 ]
 `;
+
+exports[`ok: messages of /re/index.js 1`] = `Array []`;
 
 exports[`ok: messages of /scripts/index.html 1`] = `Array []`;
 

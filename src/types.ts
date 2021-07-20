@@ -37,12 +37,29 @@ export interface ExtraInfo {
   isFile: boolean
 }
 
+export interface ExtraInfoRe {
+  /** total number of matches */
+  total: number
+  /** index of current match */
+  index: number
+  /** if current item is the first */
+  isFirst: boolean
+  /** if current item is the last */
+  isLast: boolean
+}
+
 export type Pattern = string
 
 export type CodeGenerator = (
   parsedPath: ParsedPath,
   changeCase: ChangeCase,
   extraInfo: ExtraInfo,
+) => string
+
+export type CodeGeneratorRe = (
+  matches: string[],
+  changeCase: ChangeCase,
+  extraInfo: ExtraInfoRe,
 ) => string
 
 export interface Marker {
@@ -52,4 +69,9 @@ export interface Marker {
   patterns: Pattern[]
   codeGenerator: CodeGenerator
   globbyOptions: GlobbyOptions
+  isRe: boolean
+  fileRe: string
+  codeGeneratorRe: CodeGeneratorRe
+  regionRe: RegExp
+  matchRe: RegExp
 }
