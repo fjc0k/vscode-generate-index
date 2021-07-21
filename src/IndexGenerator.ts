@@ -44,7 +44,7 @@ export class IndexGenerator {
             }).compare,
           )
           const codes = paths
-            .filter(path => path !== filePath)
+            .filter(path => !IndexGenerator.isSamePath(path, filePath))
             .map((path, index, paths) => {
               const pp = parse(path)
               const parsedPath: ParsedPath = {
@@ -222,5 +222,12 @@ export class IndexGenerator {
   public static getRelativePath(from: string, to: string): string {
     const relativePath = IndexGenerator.normalizePath(relative(from, to))
     return relativePath.startsWith('../') ? relativePath : `./${relativePath}`
+  }
+
+  public static isSamePath(path1: string, path2: string): boolean {
+    return (
+      IndexGenerator.normalizePath(path1) ===
+      IndexGenerator.normalizePath(path2)
+    )
   }
 }
