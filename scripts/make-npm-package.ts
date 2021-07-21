@@ -23,7 +23,8 @@ async function main() {
       },
       files: ['dist'],
       optionalDependencies: {
-        fsevents: `~${require('fsevents/package.json').version}`,
+        fsevents: require('chokidar/package.json').optionalDependencies
+          .fsevents,
       } as any,
     } as typeof pkg & {
       optionalDependencies?: Record<string, string>
