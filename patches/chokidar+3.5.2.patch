@@ -1,0 +1,13 @@
+diff --git a/node_modules/chokidar/lib/fsevents-handler.js b/node_modules/chokidar/lib/fsevents-handler.js
+index 0f7f2cb..75bae1f 100644
+--- a/node_modules/chokidar/lib/fsevents-handler.js
++++ b/node_modules/chokidar/lib/fsevents-handler.js
+@@ -6,7 +6,7 @@ const { promisify } = require('util');
+ 
+ let fsevents;
+ try {
+-  fsevents = require('fsevents');
++  fsevents = global.require('fsevents');
+ } catch (error) {
+   if (process.env.CHOKIDAR_PRINT_FSEVENTS_REQUIRE_ERROR) console.error(error);
+ }

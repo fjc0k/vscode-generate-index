@@ -28,7 +28,7 @@
     "publish-vscode": "cd packages/vscode && vsce publish",
     "publish-npm": "cd packages/npm && npm publish",
     "preinstall": "npx only-allow yarn",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "postinstall": "patch-package && node ./node_modules/vscode/bin/install"
   },
   "contributes": {
     "commands": [
@@ -102,6 +102,7 @@
     "lint-staged": "^10",
     "microbundle": "^0.13.3",
     "only-allow": "^1.0.0",
+    "patch-package": "^6.4.7",
     "prettier": "^2",
     "rollup-plugin-typescript2": "^0.27.0",
     "standard-version": "^6.0.1",
