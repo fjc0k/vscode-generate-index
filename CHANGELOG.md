@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.3](https://github.com/fjc0k/vscode-generate-index/compare/v1.5.2...v1.5.3) (2021-07-21)
+
+### Bug Fixes
+
+- avoid to hoist fsevents require ([86ed15f](https://github.com/fjc0k/vscode-generate-index/commit/86ed15f))
+- normalize paths before comparison (close: [#8](https://github.com/fjc0k/vscode-generate-index/issues/8)) ([dd35f4d](https://github.com/fjc0k/vscode-generate-index/commit/dd35f4d))
+
 ### [1.5.2](https://github.com/fjc0k/vscode-generate-index/compare/v1.5.1...v1.5.2) (2021-07-21)
 
 ### Bug Fixes
