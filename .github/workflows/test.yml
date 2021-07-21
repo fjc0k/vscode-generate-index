@@ -35,6 +35,6 @@ jobs:
       - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: yarn --frozen-lockfile
       - run: |
-          rm -rf node_modules/.cache
+          npx rimraf node_modules/.cache
           npm run test
           npm run bundle
