@@ -1,4 +1,4 @@
-# Generate Index
+# Generate Index [![Test](https://github.com/fjc0k/vscode-generate-index/actions/workflows/test.yml/badge.svg)](https://github.com/fjc0k/vscode-generate-index/actions/workflows/test.yml)
 
 Generating file indexes easily.
 
