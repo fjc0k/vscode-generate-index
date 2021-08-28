@@ -33,6 +33,8 @@ export class IndexGenerator {
             onlyFiles: false,
             // TODO: fix https://github.com/sindresorhus/globby/issues/133
             gitignore: false,
+            // ignore os hidden files by default
+            ignore: ['**/{.DS_Store,Thumbs.db,desktop.ini}'],
             ...(marker.globbyOptions || {}),
             cwd: fileDir,
             absolute: true,
