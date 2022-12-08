@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/fjc0k/vscode-generate-index/compare/v1.7.0...v1.7.1) (2022-12-08)
+
+### Bug Fixes
+
+- RegExp pattern generated result is wrong ([c7d09e4](https://github.com/fjc0k/vscode-generate-index/commit/c7d09e4))
+
 ## [1.7.0](https://github.com/fjc0k/vscode-generate-index/compare/v1.6.0...v1.7.0) (2022-12-08)
 
 ### Features
