@@ -31,9 +31,12 @@ export class IndexGenerator {
           const strPatterns = marker.patterns.filter(
             (p): p is string => typeof p === 'string',
           )
-          const rePatterns = marker.patterns.filter(
-            (p): p is RegExp => p instanceof RegExp,
-          )
+          const rePatterns = marker.patterns
+            .filter((p): p is RegExp => p instanceof RegExp)
+            .map(re => ({
+              re: new RegExp(re, re.flags.replace(/g/g, '')),
+              isNegative: re.flags.includes('g'),
+            }))
           let paths = await globby(strPatterns, {
             dot: true,
             onlyFiles: false,
@@ -48,14 +51,13 @@ export class IndexGenerator {
           if (rePatterns.length) {
             paths = paths.filter(path => {
               const pp = parse(path)
-              const relativePath = IndexGenerator.getRelativePath(
-                fileDir,
-                join(pp.dir, pp.name),
-              )
+              const relativePath =
+                IndexGenerator.getRelativePath(fileDir, join(pp.dir, pp.name)) +
+                pp.ext
               return rePatterns.every(re =>
-                re.flags.includes('g')
-                  ? !re.test(relativePath)
-                  : re.test(relativePath),
+                re.isNegative
+                  ? !re.re.test(relativePath)
+                  : re.re.test(relativePath),
               )
             })
           }

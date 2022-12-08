@@ -15,6 +15,7 @@ const indexFilePaths = [
   join(__dirname, './__fixtures__/cross_negative/index.txt'),
   join(__dirname, './__fixtures__/re/index.js'),
   join(__dirname, './__fixtures__/re_pattern/index'),
+  join(__dirname, './__fixtures__/bug1/index'),
 ]
 
 test('ok', async () => {

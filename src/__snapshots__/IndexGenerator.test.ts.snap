@@ -11,6 +11,13 @@ export * from './j'
 "
 `;
 
+exports[`ok: generated content of /bug1/index 1`] = `
+"// @index(['./**/*.vue', /\\\\/(components|blocks|_(?!layout))/g], f => \`\${f.name}\`)
+a
+// @endindex
+"
+`;
+
 exports[`ok: generated content of /cross/index.txt 1`] = `
 "# @index('../**/*', f => \`\${f.path}\${f.ext}\`, { onlyFiles: true })
 ../all_ts_tsx/a.ts
@@ -20,6 +27,13 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ../all_ts_tsx/e/hello.ts
 ../all_ts_tsx/index.ts
 ../all_ts_tsx/j/index.tsx
+../bug1/a.vue
+../bug1/components/表单.vue
+../bug1/components/表单内容.vue
+../bug1/components/表单按钮.vue
+../bug1/components/表单操作.vue
+../bug1/components/表单项.vue
+../bug1/index
 ../cross_negative/index.txt
 ../invalid/empty
 ../invalid/error
@@ -62,6 +76,8 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ../all_ts_tsx/d
 ../all_ts_tsx/e
 ../all_ts_tsx/j
+../bug1
+../bug1/components
 ./
 ../cross_negative
 ../invalid
@@ -86,6 +102,7 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 exports[`ok: generated content of /cross_negative/index.txt 1`] = `
 "# @index(['../*', '!../scss'], f => \`\${f.path}\${f.ext}\`)
 ../all_ts_tsx
+../bug1
 ../cross
 ./
 ../invalid
@@ -241,6 +258,8 @@ exports[`ok: generated content of /types/index.ts 1`] = `
 `;
 
 exports[`ok: messages of /all_ts_tsx/index.ts 1`] = `Array []`;
+
+exports[`ok: messages of /bug1/index 1`] = `Array []`;
 
 exports[`ok: messages of /cross/index.txt 1`] = `Array []`;
 

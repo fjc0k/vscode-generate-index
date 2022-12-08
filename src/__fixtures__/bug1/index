@@ -1,0 +1,3 @@
+// @index(['./**/*.vue', /\/(components|blocks|_(?!layout))/g], f => `${f.name}`)
+
+// @endindex
