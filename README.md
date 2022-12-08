@@ -192,6 +192,22 @@ module.exports = {
 }
 ```
 
+## RegExp pattern
+
+You can use regular expressions to filter the matched files, e.g.
+
+```js
+// export all button components except starting with _
+
+// @index(['./components/*', /button/, /\/_/g], f => `export * from '${f.name}${f.ext}'`)
+export * from './components/button.js'
+export * from './components/button_small.js'
+export * from './components/button_large.js'
+// @endindex
+```
+
+In this case, the `g` flag means ne**g**ative rather than **g**lobal.
+
 ## Standalone version
 
 There is a standalone version here that allows you to use this feature without the help of VSCode.

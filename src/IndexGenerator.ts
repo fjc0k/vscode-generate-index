@@ -28,7 +28,13 @@ export class IndexGenerator {
     if (markers.length) {
       for (const marker of markers) {
         if (!marker.isRe) {
-          const paths = await globby(marker.patterns, {
+          const strPatterns = marker.patterns.filter(
+            (p): p is string => typeof p === 'string',
+          )
+          const rePatterns = marker.patterns.filter(
+            (p): p is RegExp => p instanceof RegExp,
+          )
+          let paths = await globby(strPatterns, {
             dot: true,
             onlyFiles: false,
             // TODO: fix https://github.com/sindresorhus/globby/issues/133
@@ -39,6 +45,20 @@ export class IndexGenerator {
             cwd: fileDir,
             absolute: true,
           })
+          if (rePatterns.length) {
+            paths = paths.filter(path => {
+              const pp = parse(path)
+              const relativePath = IndexGenerator.getRelativePath(
+                fileDir,
+                join(pp.dir, pp.name),
+              )
+              return rePatterns.every(re =>
+                re.flags.includes('g')
+                  ? !re.test(relativePath)
+                  : re.test(relativePath),
+              )
+            })
+          }
           paths.sort(
             new Intl.Collator(['en', 'co'], {
               sensitivity: 'base',

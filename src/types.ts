@@ -48,7 +48,7 @@ export interface ExtraInfoRe {
   isLast: boolean
 }
 
-export type Pattern = string
+export type Pattern = string | RegExp
 
 export type CodeGenerator = (
   parsedPath: ParsedPath,
@@ -57,7 +57,7 @@ export type CodeGenerator = (
 ) => string
 
 export type CodeGeneratorRe = (
-  matches: string[],
+  matches: Pattern[],
   changeCase: ChangeCase,
   extraInfo: ExtraInfoRe,
 ) => string

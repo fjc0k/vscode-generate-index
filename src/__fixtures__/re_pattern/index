@@ -1,0 +1,19 @@
+// @index(['./*', /b/], f => `${f.name}`)
+
+// @endindex
+
+// @index(['./*', /b/, /aa/], f => `${f.name}`)
+
+// @endindex
+
+// @index(['./*', /b/, /aa/g], f => `${f.name}`)
+
+// @endindex
+
+// @index(['./*', /^(.(?!(la|ya)))*$/], f => `${f.name}`)
+
+// @endindex
+
+// @index(['./*', /(la|ya)/g], f => `${f.name}`)
+
+// @endindex

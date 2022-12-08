@@ -23,6 +23,12 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ../cross_negative/index.txt
 ../invalid/empty
 ../invalid/error
+../re_pattern/baabaa
+../re_pattern/baba
+../re_pattern/haha
+../re_pattern/index
+../re_pattern/lala
+../re_pattern/yaya
 ../re/index.js
 ../scripts/index.html
 ../scripts/jssdk.js
@@ -60,6 +66,7 @@ exports[`ok: generated content of /cross/index.txt 1`] = `
 ../cross_negative
 ../invalid
 ../re
+../re_pattern
 ../scripts
 ../scss
 ../sort
@@ -83,6 +90,7 @@ exports[`ok: generated content of /cross_negative/index.txt 1`] = `
 ./
 ../invalid
 ../re
+../re_pattern
 ../scripts
 ../sort
 ../types
@@ -134,6 +142,33 @@ remove
   pathExists
   remove
   // @endindex"
+`;
+
+exports[`ok: generated content of /re_pattern/index 1`] = `
+"// @index(['./*', /b/], f => \`\${f.name}\`)
+baabaa
+baba
+// @endindex
+
+// @index(['./*', /b/, /aa/], f => \`\${f.name}\`)
+baabaa
+// @endindex
+
+// @index(['./*', /b/, /aa/g], f => \`\${f.name}\`)
+baba
+// @endindex
+
+// @index(['./*', /^(.(?!(la|ya)))*$/], f => \`\${f.name}\`)
+baabaa
+baba
+haha
+// @endindex
+
+// @index(['./*', /(la|ya)/g], f => \`\${f.name}\`)
+baabaa
+baba
+haha
+// @endindex"
 `;
 
 exports[`ok: generated content of /scripts/index.html 1`] = `
@@ -225,6 +260,8 @@ Array [
 `;
 
 exports[`ok: messages of /re/index.js 1`] = `Array []`;
+
+exports[`ok: messages of /re_pattern/index 1`] = `Array []`;
 
 exports[`ok: messages of /scripts/index.html 1`] = `Array []`;
 
